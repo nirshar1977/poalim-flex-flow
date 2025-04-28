@@ -5,13 +5,13 @@ import { ChevronLeft } from 'lucide-react';
 
 const HeroSection: React.FC = () => {
   return (
-    <div className="bg-[#F8FAFC]">
-      <div className="container mx-auto px-4 py-16 md:py-24">
+    <div className="bg-white border-b border-gray-200">
+      <div className="container mx-auto px-4 py-12 md:py-16">
         <div className="flex flex-col md:flex-row items-center gap-12">
           <div className="md:w-1/2">
             <div className="space-y-6 text-right">
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-poalim-navy leading-tight">
-                <span className="text-poalim-blue">החזרי משכנתא</span>
+                <span className="text-poalim-red">החזרי משכנתא</span>
                 <br />
                 גמישים לחיים משתנים
               </h1>
@@ -30,7 +30,7 @@ const HeroSection: React.FC = () => {
                 <Button 
                   size="lg"
                   variant="outline" 
-                  className="border-poalim-blue text-poalim-blue hover:bg-poalim-blue/10"
+                  className="border-poalim-red text-poalim-red hover:bg-poalim-red/10"
                 >
                   לפרטים נוספים
                 </Button>
@@ -39,8 +39,8 @@ const HeroSection: React.FC = () => {
           </div>
           <div className="md:w-1/2">
             <div className="relative">
-              <div className="absolute -z-10 w-72 h-72 bg-poalim-teal/20 rounded-full -right-10 -top-10 blur-3xl"></div>
-              <div className="absolute -z-10 w-72 h-72 bg-poalim-blue/20 rounded-full -left-10 -bottom-10 blur-3xl"></div>
+              <div className="absolute -z-10 w-72 h-72 bg-poalim-red/20 rounded-full -right-10 -top-10 blur-3xl"></div>
+              <div className="absolute -z-10 w-72 h-72 bg-poalim-red/20 rounded-full -left-10 -bottom-10 blur-3xl"></div>
               <div className="bg-white p-6 rounded-2xl card-shadow">
                 <div className="flex justify-between items-center mb-6">
                   <div>
