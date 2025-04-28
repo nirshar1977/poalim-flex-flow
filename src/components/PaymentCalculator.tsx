@@ -4,6 +4,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Slider } from '@/components/ui/slider';
 import { useToast } from '@/components/ui/use-toast';
+import { CheckCircle } from 'lucide-react';
 import {
   AreaChart,
   Area,
@@ -19,6 +20,7 @@ const PaymentCalculator: React.FC = () => {
   const [currentPayment, setCurrentPayment] = useState(5200);
   const [reductionAmount, setReductionAmount] = useState(1500);
   const [repayMonths, setRepayMonths] = useState(12);
+  const [isConfirming, setIsConfirming] = useState(false);
   
   // Calculate adjusted payments
   const reducedPayment = currentPayment - reductionAmount;
@@ -26,11 +28,20 @@ const PaymentCalculator: React.FC = () => {
   const futurePayment = currentPayment + monthlyExtra;
 
   const handleApply = () => {
+    setIsConfirming(true);
+  };
+  
+  const handleConfirm = () => {
     toast({
       title: "בקשת גמישות נשלחה בהצלחה!",
       description: `התשלום הקרוב הופחת ב-${reductionAmount} ₪. ההפרש יתחלק על פני ${repayMonths} החודשים הבאים.`,
       duration: 5000,
     });
+    setIsConfirming(false);
+  };
+  
+  const handleCancel = () => {
+    setIsConfirming(false);
   };
 
   // Generate chart data
@@ -80,7 +91,10 @@ const PaymentCalculator: React.FC = () => {
                 min={2000}
                 max={10000}
                 step={100}
-                onValueChange={(value) => setCurrentPayment(value[0])}
+                onValueChange={(value) => {
+                  setCurrentPayment(value[0]);
+                  setIsConfirming(false);
+                }}
                 className="mb-6"
               />
 
@@ -93,7 +107,10 @@ const PaymentCalculator: React.FC = () => {
                 min={500}
                 max={Math.min(3000, currentPayment - 1000)}
                 step={100}
-                onValueChange={(value) => setReductionAmount(value[0])}
+                onValueChange={(value) => {
+                  setReductionAmount(value[0]);
+                  setIsConfirming(false);
+                }}
                 className="mb-6"
               />
 
@@ -106,7 +123,10 @@ const PaymentCalculator: React.FC = () => {
                 min={3}
                 max={24}
                 step={1}
-                onValueChange={(value) => setRepayMonths(value[0])}
+                onValueChange={(value) => {
+                  setRepayMonths(value[0]);
+                  setIsConfirming(false);
+                }}
                 className="mb-6"
               />
             </div>
@@ -133,9 +153,38 @@ const PaymentCalculator: React.FC = () => {
               </div>
             </div>
 
-            <Button onClick={handleApply} className="w-full bg-poalim-red hover:bg-poalim-red/90">
-              הפחת את התשלום הקרוב
-            </Button>
+            {!isConfirming ? (
+              <Button onClick={handleApply} className="w-full bg-poalim-red hover:bg-poalim-red/90">
+                הפחת את התשלום הקרוב
+              </Button>
+            ) : (
+              <div className="space-y-4">
+                <div className="bg-poalim-lightRed p-4 rounded-lg text-center">
+                  <h5 className="font-bold text-poalim-red flex items-center justify-center gap-2 mb-2">
+                    <CheckCircle className="h-5 w-5" />
+                    אישור בקשת הפחתת תשלום
+                  </h5>
+                  <p className="text-sm text-gray-600 mb-2">
+                    התשלום הקרוב יופחת ב-{reductionAmount} ₪
+                    <br />
+                    וההפרש יתחלק על פני {repayMonths} החודשים הבאים
+                  </p>
+                  <Button 
+                    onClick={handleConfirm} 
+                    className="w-full bg-poalim-red hover:bg-poalim-red/90 mb-2"
+                  >
+                    אישור והפעלת הגמישות
+                  </Button>
+                  <Button 
+                    onClick={handleCancel}
+                    variant="outline" 
+                    className="w-full border-poalim-red text-poalim-red hover:bg-poalim-lightRed"
+                  >
+                    ביטול
+                  </Button>
+                </div>
+              </div>
+            )}
           </CardContent>
         </Card>
 
