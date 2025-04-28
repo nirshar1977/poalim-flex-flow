@@ -3,7 +3,7 @@ import React from 'react';
 import Navbar from '@/components/Navbar';
 import HeroSection from '@/components/HeroSection';
 import HowItWorks from '@/components/HowItWorks';
-import PaymentCalculator from '@/components/PaymentCalculator';
+import PaymentCalculator from '@/components/payment-calculator';
 import BenefitsSection from '@/components/BenefitsSection';
 import FAQ from '@/components/FAQ';
 import Footer from '@/components/Footer';
