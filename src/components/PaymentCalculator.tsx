@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -19,6 +20,7 @@ const PaymentCalculator: React.FC = () => {
   const [reductionAmount, setReductionAmount] = useState(1500);
   const [repayMonths, setRepayMonths] = useState(12);
   
+  // Calculate adjusted payments
   const reducedPayment = currentPayment - reductionAmount;
   const monthlyExtra = Math.ceil(reductionAmount / repayMonths);
   const futurePayment = currentPayment + monthlyExtra;
@@ -31,15 +33,18 @@ const PaymentCalculator: React.FC = () => {
     });
   };
 
+  // Generate chart data
   const generateChartData = () => {
     const data = [];
     
+    // Current month with reduced payment
     data.push({
       name: 'חודש נוכחי',
       תשלום: reducedPayment,
       תוספת: 0
     });
 
+    // Future months with increased payment
     for (let i = 1; i <= 6; i++) {
       data.push({
         name: `חודש ${i + 1}`,
@@ -54,7 +59,7 @@ const PaymentCalculator: React.FC = () => {
   return (
     <section id="calculator" className="section-container bg-poalim-gray">
       <div className="text-center mb-12">
-        <h2 className="text-3xl md:text-4xl font-bold text-poalim-navy mb-4">סימולטור תשלומי <span className="text-poalim-blue">פועלים פלקס</span></h2>
+        <h2 className="text-3xl md:text-4xl font-bold text-poalim-navy mb-4">סימולטור תשלומי <span className="text-poalim-teal">פועלים פלקס</span></h2>
         <p className="text-gray-600 max-w-2xl mx-auto">
           נסו את הסימולטור שלנו כדי לראות כיצד תוכלו להתאים את תשלומי המשכנתא שלכם לצרכים הפיננסיים שלכם
         </p>
@@ -110,25 +115,25 @@ const PaymentCalculator: React.FC = () => {
               <h4 className="text-lg font-bold text-poalim-navy mb-4">סיכום</h4>
               
               <div className="grid grid-cols-2 gap-4 mb-4">
-                <div className="bg-poalim-blue/5 p-3 rounded-lg">
+                <div className="bg-poalim-lightBlue p-3 rounded-lg">
                   <p className="text-sm text-gray-600">תשלום נוכחי</p>
                   <p className="text-xl font-bold text-poalim-navy">{currentPayment} ₪</p>
                 </div>
-                <div className="bg-poalim-blue/5 p-3 rounded-lg">
+                <div className="bg-green-100 p-3 rounded-lg">
                   <p className="text-sm text-gray-600">תשלום מופחת</p>
-                  <p className="text-xl font-bold text-poalim-blue">{reducedPayment} ₪</p>
-                  <p className="text-xs text-poalim-blue">חיסכון: {reductionAmount} ₪</p>
+                  <p className="text-xl font-bold text-green-600">{reducedPayment} ₪</p>
+                  <p className="text-xs text-green-500">חיסכון: {reductionAmount} ₪</p>
                 </div>
               </div>
               
-              <div className="text-center p-3 rounded-lg border border-poalim-blue bg-poalim-blue/5">
+              <div className="text-center p-3 rounded-lg border border-poalim-blue bg-poalim-lightBlue/30">
                 <p className="text-sm text-gray-600">תשלום בחודשים הבאים</p>
                 <p className="text-lg font-bold text-poalim-blue">{futurePayment} ₪</p>
                 <p className="text-xs text-gray-500">למשך {repayMonths} חודשים</p>
               </div>
             </div>
 
-            <Button onClick={handleApply} className="w-full bg-poalim-blue hover:bg-poalim-lightBlue text-white">
+            <Button onClick={handleApply} className="w-full bg-poalim-teal hover:bg-poalim-blue">
               הפחת את התשלום הקרוב
             </Button>
           </CardContent>

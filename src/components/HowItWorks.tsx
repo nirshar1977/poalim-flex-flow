@@ -54,26 +54,26 @@ const HowItWorks: React.FC = () => {
   ];
 
   return (
-    <section id="how-it-works" className="section-container bg-white border-b border-poalim-border">
+    <section id="how-it-works" className="section-container">
       <div className="text-center mb-12">
-        <h2 className="text-3xl md:text-4xl font-bold text-poalim-text mb-4">איך <span className="text-poalim-red">פועלים פלקס</span> עובד?</h2>
-        <p className="text-poalim-text/80 max-w-2xl mx-auto">
+        <h2 className="text-3xl md:text-4xl font-bold text-poalim-navy mb-4">איך <span className="text-poalim-teal">פועלים פלקס</span> עובד?</h2>
+        <p className="text-gray-600 max-w-2xl mx-auto">
           פועלים פלקס מאפשר לך לנהל את תשלומי המשכנתא שלך באופן גמיש, המותאם לצרכים הפיננסיים המשתנים שלך
         </p>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {steps.map((step) => (
-          <Card key={step.id} className="border-none hover:border-poalim-red/20 hover:shadow-lg transition-all duration-300">
+          <Card key={step.id} className="border-none card-shadow">
             <CardContent className="p-6 flex flex-col items-center text-center">
-              <div className="bg-poalim-light p-4 rounded-full mb-4">
-                {React.cloneElement(step.icon as React.ReactElement, { className: 'w-10 h-10 text-poalim-red' })}
+              <div className="bg-poalim-lightBlue p-4 rounded-full mb-4">
+                {step.icon}
               </div>
-              <div className="bg-poalim-red text-white h-8 w-8 rounded-full flex items-center justify-center font-bold mb-4">
+              <div className="bg-poalim-teal text-white h-8 w-8 rounded-full flex items-center justify-center font-bold mb-4">
                 {step.id}
               </div>
-              <h3 className="text-xl font-bold text-poalim-text mb-2">{step.title}</h3>
-              <p className="text-poalim-text/80">{step.description}</p>
+              <h3 className="text-xl font-bold text-poalim-navy mb-2">{step.title}</h3>
+              <p className="text-gray-600">{step.description}</p>
             </CardContent>
           </Card>
         ))}

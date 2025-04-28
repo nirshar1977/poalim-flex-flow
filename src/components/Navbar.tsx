@@ -1,82 +1,56 @@
+
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
-import { ChevronLeft } from 'lucide-react';
 
 const Navbar: React.FC = () => {
   return (
-    <header className="bg-white border-b border-poalim-border sticky top-0 z-50">
-      {/* Top Navigation */}
-      <div className="container mx-auto px-4">
-        <div className="flex justify-between items-center py-2 text-sm">
-          <div className="flex items-center gap-6">
-            {/* Keep existing top nav links but update hover colors */}
-            <a href="#" className="text-poalim-text/60 hover:text-poalim-red">International</a>
-            <a href="#" className="text-poalim-text/60 hover:text-poalim-red">العربية</a>
-            <a href="#" className="text-poalim-text/60 hover:text-poalim-red">יצירת קשר</a>
-            <a href="#" className="text-poalim-text/60 hover:text-poalim-red">סניפים</a>
-            <a href="#" className="text-poalim-text/60 hover:text-poalim-red">חיפוש</a>
-          </div>
-          <div className="flex items-center gap-6">
-            {/* Keep existing right nav links but update hover colors */}
-            <a href="#" className="text-poalim-text/60 hover:text-poalim-red">Poalim Wonder</a>
-            <a href="#" className="text-poalim-text/60 hover:text-poalim-red">חטיבה עסקית</a>
-            <a href="#" className="text-poalim-text/60 hover:text-poalim-red">לקוח עסקי</a>
-            <a href="#" className="text-poalim-text/60 hover:text-poalim-red">לקוח פרטי</a>
+    <header className="py-4 bg-white border-b border-gray-200 sticky top-0 z-50">
+      <div className="container mx-auto px-4 flex justify-between items-center">
+        <div className="flex items-center">
+          <div className="text-poalim-blue font-bold text-xl flex items-center gap-1">
+            <span className="text-poalim-teal">Poalim</span>
+            <span>Flex</span>
           </div>
         </div>
-      </div>
-
-      {/* Main Navigation */}
-      <div className="container mx-auto px-4 py-2">
-        <div className="flex justify-between items-center">
-          <div className="flex items-center gap-8">
-            <div className="text-poalim-red font-bold text-2xl">
-              בנק הפועלים
-            </div>
-            <nav className="hidden lg:flex gap-6">
-              <NavDropdown text="הצטרפות לבנק">
-                <Button 
-                  variant="destructive" 
-                  className="bg-poalim-red hover:bg-poalim-red/90 text-white font-medium"
-                >
-                  <span>כניסה לחשבון</span>
-                  <ChevronLeft className="mr-2 h-4 w-4" />
-                </Button>
-              </NavDropdown>
-              <NavDropdown text="משכנתא" />
-              <NavDropdown text="ייעוץ פיננסי" />
-              <NavDropdown text="שוק ההון" />
-              <NavDropdown text="מטבע חוץ" />
-              <NavDropdown text="כרטיסי אשראי" />
-              <NavDropdown text="פיקדונות וחסכונות" />
-              <NavDropdown text="הלוואות" />
-            </nav>
-          </div>
+        
+        <nav className="hidden md:flex gap-6">
+          <NavLink href="#how-it-works">איך זה עובד</NavLink>
+          <NavLink href="#benefits">יתרונות</NavLink>
+          <NavLink href="#calculator">סימולטור</NavLink>
+          <NavLink href="#faq">שאלות נפוצות</NavLink>
+        </nav>
+        
+        <div>
+          <Button 
+            size="sm" 
+            className="bg-poalim-teal hover:bg-poalim-blue transition-colors"
+          >
+            לחץ להתחיל
+          </Button>
         </div>
       </div>
     </header>
   );
 };
 
-interface NavDropdownProps {
-  text: string;
-  children?: React.ReactNode;
+interface NavLinkProps {
+  href: string;
+  children: React.ReactNode;
+  className?: string;
 }
 
-const NavDropdown: React.FC<NavDropdownProps> = ({ text, children }) => {
+const NavLink: React.FC<NavLinkProps> = ({ href, children, className }) => {
   return (
-    <div className="group relative">
-      <button className="flex items-center gap-1 text-gray-700 hover:text-poalim-blue py-2">
-        {text}
-        <ChevronLeft className="h-4 w-4" />
-      </button>
-      {children && (
-        <div className="absolute top-full right-0 bg-white shadow-lg rounded-md p-4 hidden group-hover:block min-w-[200px]">
-          {children}
-        </div>
+    <a 
+      href={href} 
+      className={cn(
+        "text-gray-600 hover:text-poalim-blue font-medium transition-colors",
+        className
       )}
-    </div>
+    >
+      {children}
+    </a>
   );
 };
 

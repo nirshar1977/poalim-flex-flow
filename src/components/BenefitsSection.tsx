@@ -75,27 +75,27 @@ const BenefitsSection: React.FC = () => {
   ];
 
   return (
-    <section id="benefits" className="section-container bg-white border-b border-poalim-border">
+    <section id="benefits" className="section-container">
       <div className="text-center mb-12">
-        <h2 className="text-3xl md:text-4xl font-bold text-poalim-text mb-4">למה <span className="text-poalim-red">פועלים פלקס</span>?</h2>
-        <p className="text-poalim-text/80 max-w-2xl mx-auto">
+        <h2 className="text-3xl md:text-4xl font-bold text-poalim-navy mb-4">למה <span className="text-poalim-teal">פועלים פלקס</span>?</h2>
+        <p className="text-gray-600 max-w-2xl mx-auto">
           פועלים פלקס מציע יתרונות משמעותיים הן ללקוחות והן לבנק
         </p>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         <div>
-          <h3 className="text-2xl font-bold text-poalim-red mb-6 text-center">יתרונות ללקוחות</h3>
+          <h3 className="text-2xl font-bold text-poalim-teal mb-6 text-center">יתרונות ללקוחות</h3>
           <div className="space-y-4">
             {customerBenefits.map((benefit, index) => (
-              <Card key={index} className="border-none hover:border-poalim-red/20 hover:shadow-lg transition-all duration-300">
+              <Card key={index} className="border-none card-shadow">
                 <CardContent className="p-6 flex items-start">
-                  <div className="bg-poalim-light p-3 rounded-full mr-4">
-                    {React.cloneElement(benefit.icon as React.ReactElement, { className: 'w-10 h-10 text-poalim-red' })}
+                  <div className="bg-poalim-lightBlue p-3 rounded-full mr-4">
+                    {benefit.icon}
                   </div>
                   <div>
-                    <h4 className="text-xl font-bold text-poalim-text mb-2">{benefit.title}</h4>
-                    <p className="text-poalim-text/80">{benefit.description}</p>
+                    <h4 className="text-xl font-bold text-poalim-navy mb-2">{benefit.title}</h4>
+                    <p className="text-gray-600">{benefit.description}</p>
                   </div>
                 </CardContent>
               </Card>
@@ -104,17 +104,17 @@ const BenefitsSection: React.FC = () => {
         </div>
         
         <div>
-          <h3 className="text-2xl font-bold text-poalim-red mb-6 text-center">יתרונות לבנק</h3>
+          <h3 className="text-2xl font-bold text-poalim-blue mb-6 text-center">יתרונות לבנק</h3>
           <div className="space-y-4">
             {bankBenefits.map((benefit, index) => (
-              <Card key={index} className="border-none hover:border-poalim-red/20 hover:shadow-lg transition-all duration-300">
+              <Card key={index} className="border-none card-shadow">
                 <CardContent className="p-6 flex items-start">
-                  <div className="bg-poalim-light p-3 rounded-full mr-4">
-                    {React.cloneElement(benefit.icon as React.ReactElement, { className: 'w-10 h-10 text-poalim-red' })}
+                  <div className="bg-poalim-lightBlue p-3 rounded-full mr-4">
+                    {benefit.icon}
                   </div>
                   <div>
-                    <h4 className="text-xl font-bold text-poalim-text mb-2">{benefit.title}</h4>
-                    <p className="text-poalim-text/80">{benefit.description}</p>
+                    <h4 className="text-xl font-bold text-poalim-navy mb-2">{benefit.title}</h4>
+                    <p className="text-gray-600">{benefit.description}</p>
                   </div>
                 </CardContent>
               </Card>
