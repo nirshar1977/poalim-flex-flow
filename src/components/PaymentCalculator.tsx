@@ -59,7 +59,7 @@ const PaymentCalculator: React.FC = () => {
   return (
     <section id="calculator" className="section-container bg-poalim-gray">
       <div className="text-center mb-12">
-        <h2 className="text-3xl md:text-4xl font-bold text-poalim-navy mb-4">סימולטור תשלומי <span className="text-poalim-teal">פועלים פלקס</span></h2>
+        <h2 className="text-3xl md:text-4xl font-bold text-poalim-darkText mb-4">סימולטור תשלומי <span className="text-poalim-red">פועלים פלקס</span></h2>
         <p className="text-gray-600 max-w-2xl mx-auto">
           נסו את הסימולטור שלנו כדי לראות כיצד תוכלו להתאים את תשלומי המשכנתא שלכם לצרכים הפיננסיים שלכם
         </p>
@@ -68,7 +68,7 @@ const PaymentCalculator: React.FC = () => {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         <Card className="border-none card-shadow">
           <CardContent className="p-6">
-            <h3 className="text-xl font-bold text-poalim-navy mb-6">הגדרת הפחתת תשלום</h3>
+            <h3 className="text-xl font-bold text-poalim-darkText mb-6">הגדרת הפחתת תשלום</h3>
             
             <div className="mb-8">
               <div className="flex justify-between mb-2">
@@ -86,7 +86,7 @@ const PaymentCalculator: React.FC = () => {
 
               <div className="flex justify-between mb-2">
                 <label className="text-gray-600">סכום להפחתה מהתשלום הנוכחי:</label>
-                <span className="font-bold text-poalim-teal">{reductionAmount} ₪</span>
+                <span className="font-bold text-poalim-red">{reductionAmount} ₪</span>
               </div>
               <Slider
                 value={[reductionAmount]}
@@ -112,12 +112,12 @@ const PaymentCalculator: React.FC = () => {
             </div>
 
             <div className="bg-white p-4 rounded-xl mb-6">
-              <h4 className="text-lg font-bold text-poalim-navy mb-4">סיכום</h4>
+              <h4 className="text-lg font-bold text-poalim-darkText mb-4">סיכום</h4>
               
               <div className="grid grid-cols-2 gap-4 mb-4">
-                <div className="bg-poalim-lightBlue p-3 rounded-lg">
+                <div className="bg-poalim-lightRed p-3 rounded-lg">
                   <p className="text-sm text-gray-600">תשלום נוכחי</p>
-                  <p className="text-xl font-bold text-poalim-navy">{currentPayment} ₪</p>
+                  <p className="text-xl font-bold text-poalim-darkText">{currentPayment} ₪</p>
                 </div>
                 <div className="bg-green-100 p-3 rounded-lg">
                   <p className="text-sm text-gray-600">תשלום מופחת</p>
@@ -126,14 +126,14 @@ const PaymentCalculator: React.FC = () => {
                 </div>
               </div>
               
-              <div className="text-center p-3 rounded-lg border border-poalim-blue bg-poalim-lightBlue/30">
+              <div className="text-center p-3 rounded-lg border border-poalim-red bg-poalim-lightRed/30">
                 <p className="text-sm text-gray-600">תשלום בחודשים הבאים</p>
-                <p className="text-lg font-bold text-poalim-blue">{futurePayment} ₪</p>
+                <p className="text-lg font-bold text-poalim-red">{futurePayment} ₪</p>
                 <p className="text-xs text-gray-500">למשך {repayMonths} חודשים</p>
               </div>
             </div>
 
-            <Button onClick={handleApply} className="w-full bg-poalim-teal hover:bg-poalim-blue">
+            <Button onClick={handleApply} className="w-full bg-poalim-red hover:bg-poalim-red/90">
               הפחת את התשלום הקרוב
             </Button>
           </CardContent>
@@ -141,7 +141,7 @@ const PaymentCalculator: React.FC = () => {
 
         <Card className="border-none card-shadow overflow-hidden">
           <CardContent className="p-6">
-            <h3 className="text-xl font-bold text-poalim-navy mb-6">השוואת תשלומים</h3>
+            <h3 className="text-xl font-bold text-poalim-darkText mb-6">השוואת תשלומים</h3>
             
             <div className="bg-white rounded-xl p-4 h-[400px]">
               <ResponsiveContainer width="100%" height="100%">
@@ -151,12 +151,12 @@ const PaymentCalculator: React.FC = () => {
                 >
                   <defs>
                     <linearGradient id="colorBase" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="5%" stopColor="#0057B8" stopOpacity={0.8} />
-                      <stop offset="95%" stopColor="#0057B8" stopOpacity={0.1} />
+                      <stop offset="5%" stopColor="#D0021B" stopOpacity={0.8} />
+                      <stop offset="95%" stopColor="#D0021B" stopOpacity={0.1} />
                     </linearGradient>
                     <linearGradient id="colorExtra" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="5%" stopColor="#00C3A5" stopOpacity={0.8} />
-                      <stop offset="95%" stopColor="#00C3A5" stopOpacity={0.1} />
+                      <stop offset="5%" stopColor="#D0021B" stopOpacity={0.6} />
+                      <stop offset="95%" stopColor="#D0021B" stopOpacity={0.1} />
                     </linearGradient>
                   </defs>
                   <CartesianGrid strokeDasharray="3 3" vertical={false} />
@@ -171,14 +171,14 @@ const PaymentCalculator: React.FC = () => {
                     type="monotone" 
                     dataKey="תשלום" 
                     stackId="1"
-                    stroke="#0057B8" 
+                    stroke="#D0021B" 
                     fill="url(#colorBase)" 
                   />
                   <Area 
                     type="monotone" 
                     dataKey="תוספת" 
                     stackId="1"
-                    stroke="#00C3A5" 
+                    stroke="#D0021B" 
                     fill="url(#colorExtra)" 
                   />
                 </AreaChart>
@@ -187,11 +187,11 @@ const PaymentCalculator: React.FC = () => {
             
             <div className="mt-6 grid grid-cols-2 gap-4 text-center">
               <div className="flex flex-col items-center">
-                <div className="h-3 w-10 rounded-full bg-poalim-blue mb-2"></div>
+                <div className="h-3 w-10 rounded-full bg-poalim-red mb-2"></div>
                 <p className="text-sm text-gray-600">תשלום בסיסי</p>
               </div>
               <div className="flex flex-col items-center">
-                <div className="h-3 w-10 rounded-full bg-poalim-teal mb-2"></div>
+                <div className="h-3 w-10 rounded-full bg-poalim-red/60 mb-2"></div>
                 <p className="text-sm text-gray-600">תוספת החזר הפרש</p>
               </div>
             </div>

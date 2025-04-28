@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React from 'react';
 import {
   Accordion,
   AccordionContent,
@@ -38,7 +38,7 @@ const FAQ: React.FC = () => {
   return (
     <section id="faq" className="section-container bg-poalim-gray">
       <div className="text-center mb-12">
-        <h2 className="text-3xl md:text-4xl font-bold text-poalim-navy mb-4">שאלות נפוצות</h2>
+        <h2 className="text-3xl md:text-4xl font-bold text-poalim-darkText mb-4">שאלות נפוצות</h2>
         <p className="text-gray-600 max-w-2xl mx-auto">
           תשובות לשאלות הנפוצות ביותר על פועלים פלקס
         </p>
@@ -47,8 +47,8 @@ const FAQ: React.FC = () => {
       <div className="max-w-3xl mx-auto">
         <Accordion type="single" collapsible className="bg-white rounded-xl overflow-hidden card-shadow">
           {faqs.map((faq, index) => (
-            <AccordionItem key={index} value={`item-${index}`} className="border-b border-poalim-lightBlue">
-              <AccordionTrigger className="px-6 py-4 hover:bg-poalim-lightBlue/30 text-right font-medium">
+            <AccordionItem key={index} value={`item-${index}`} className="border-b border-poalim-lightBorder">
+              <AccordionTrigger className="px-6 py-4 hover:bg-poalim-lightRed/30 text-right font-medium">
                 {faq.question}
               </AccordionTrigger>
               <AccordionContent className="px-6 py-4 text-gray-600">

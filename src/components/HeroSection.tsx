@@ -9,23 +9,23 @@ const HeroSection: React.FC = () => {
       <div className="container mx-auto px-4 py-16 md:py-24">
         <div className="flex flex-col md:flex-row items-center gap-8">
           <div className="md:w-1/2 space-y-6">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-poalim-navy leading-tight">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-poalim-darkText leading-tight">
               החזרי משכנתא גמישים
-              <span className="block text-poalim-teal">בהתאמה אישית</span>
+              <span className="block text-poalim-red">בהתאמה אישית</span>
             </h1>
             <p className="text-lg md:text-xl text-gray-600 max-w-lg">
               פתרון חכם להקטנת תשלומי המשכנתא בתקופות עמוסות פיננסית,
               עם פריסה חכמה לאורך יתרת תקופת ההלוואה
             </p>
             <div className="flex flex-wrap gap-4 pt-4">
-              <Button size="lg" className="bg-poalim-blue hover:bg-poalim-navy">
+              <Button size="lg" className="bg-poalim-red hover:bg-poalim-red/90">
                 לקבל פרטים נוספים
                 <ArrowLeft className="mr-2 h-4 w-4" />
               </Button>
               <Button 
                 size="lg"
                 variant="outline" 
-                className="border-poalim-blue text-poalim-blue hover:bg-poalim-lightBlue"
+                className="border-poalim-red text-poalim-red hover:bg-poalim-lightRed"
               >
                 לנסות את הסימולטור
               </Button>
@@ -33,16 +33,16 @@ const HeroSection: React.FC = () => {
           </div>
           <div className="md:w-1/2">
             <div className="relative">
-              <div className="absolute -z-10 w-72 h-72 bg-poalim-teal/20 rounded-full -right-10 -top-10 blur-3xl"></div>
-              <div className="absolute -z-10 w-72 h-72 bg-poalim-blue/20 rounded-full -left-10 -bottom-10 blur-3xl"></div>
+              <div className="absolute -z-10 w-72 h-72 bg-poalim-red/20 rounded-full -right-10 -top-10 blur-3xl"></div>
+              <div className="absolute -z-10 w-72 h-72 bg-poalim-red/10 rounded-full -left-10 -bottom-10 blur-3xl"></div>
               <div className="bg-white p-6 rounded-2xl card-shadow">
                 <div className="flex justify-between items-center mb-6">
                   <div>
-                    <h3 className="text-lg font-bold text-poalim-navy">תשלום משכנתא חודשי</h3>
+                    <h3 className="text-lg font-bold text-poalim-darkText">תשלום משכנתא חודשי</h3>
                     <p className="text-sm text-gray-500">תשלום גמיש עבור 15/09/2025</p>
                   </div>
-                  <div className="bg-poalim-lightBlue p-2 rounded-full">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-poalim-blue">
+                  <div className="bg-poalim-lightRed p-2 rounded-full">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-poalim-red">
                       <path d="M21 7.5V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-1.5"></path>
                       <path d="M16 2v4"></path>
                       <path d="M8 2v4"></path>
@@ -60,8 +60,8 @@ const HeroSection: React.FC = () => {
                     <span className="font-bold">₪5,200</span>
                   </div>
                   <div className="flex justify-between items-center">
-                    <span className="text-poalim-teal font-medium">תשלום מופחת Flex:</span>
-                    <span className="font-bold text-xl text-poalim-teal">₪3,700</span>
+                    <span className="text-poalim-red font-medium">תשלום מופחת Flex:</span>
+                    <span className="font-bold text-xl text-poalim-red">₪3,700</span>
                   </div>
                   <div className="flex justify-between items-center mt-2">
                     <span className="text-green-500 text-sm">חיסכון חודשי:</span>
@@ -74,7 +74,7 @@ const HeroSection: React.FC = () => {
                   <p className="text-xs text-gray-500">ההפרש בסך 1,500 ש"ח יתחלק שווה על פני 12 החודשים הבאים</p>
                 </div>
 
-                <Button className="w-full bg-poalim-teal hover:bg-poalim-blue">
+                <Button className="w-full bg-poalim-red hover:bg-poalim-red/90">
                   אישור ההפחתה
                 </Button>
               </div>
