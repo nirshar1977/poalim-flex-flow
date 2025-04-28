@@ -1,34 +1,40 @@
 
 import React from 'react';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft } from 'lucide-react';
+import { ChevronLeft } from 'lucide-react';
 
 const HeroSection: React.FC = () => {
   return (
-    <div className="gradient-bg">
+    <div className="bg-[#F8FAFC]">
       <div className="container mx-auto px-4 py-16 md:py-24">
-        <div className="flex flex-col md:flex-row items-center gap-8">
-          <div className="md:w-1/2 space-y-6">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-poalim-navy leading-tight">
-              החזרי משכנתא גמישים
-              <span className="block text-poalim-teal">בהתאמה אישית</span>
-            </h1>
-            <p className="text-lg md:text-xl text-gray-600 max-w-lg">
-              פתרון חכם להקטנת תשלומי המשכנתא בתקופות עמוסות פיננסית,
-              עם פריסה חכמה לאורך יתרת תקופת ההלוואה
-            </p>
-            <div className="flex flex-wrap gap-4 pt-4">
-              <Button size="lg" className="bg-poalim-blue hover:bg-poalim-navy">
-                לקבל פרטים נוספים
-                <ArrowLeft className="mr-2 h-4 w-4" />
-              </Button>
-              <Button 
-                size="lg"
-                variant="outline" 
-                className="border-poalim-blue text-poalim-blue hover:bg-poalim-lightBlue"
-              >
-                לנסות את הסימולטור
-              </Button>
+        <div className="flex flex-col md:flex-row items-center gap-12">
+          <div className="md:w-1/2">
+            <div className="space-y-6 text-right">
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-poalim-navy leading-tight">
+                <span className="text-poalim-blue">החזרי משכנתא</span>
+                <br />
+                גמישים לחיים משתנים
+              </h1>
+              <p className="text-lg md:text-xl text-gray-600 max-w-lg">
+                פתרון חכם להקטנת תשלומי המשכנתא בתקופות עמוסות פיננסית,
+                עם פריסה חכמה לאורך יתרת תקופת ההלוואה
+              </p>
+              <div className="flex flex-wrap gap-4 pt-4 justify-start">
+                <Button 
+                  size="lg" 
+                  className="bg-poalim-red hover:bg-poalim-red/90 text-white font-medium"
+                >
+                  למצטרפים חדשים לבנק הפועלים
+                  <ChevronLeft className="mr-2 h-4 w-4" />
+                </Button>
+                <Button 
+                  size="lg"
+                  variant="outline" 
+                  className="border-poalim-blue text-poalim-blue hover:bg-poalim-blue/10"
+                >
+                  לפרטים נוספים
+                </Button>
+              </div>
             </div>
           </div>
           <div className="md:w-1/2">
