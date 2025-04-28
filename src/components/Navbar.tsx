@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
@@ -6,22 +5,24 @@ import { ChevronLeft } from 'lucide-react';
 
 const Navbar: React.FC = () => {
   return (
-    <header className="bg-white border-b border-gray-200 sticky top-0 z-50">
+    <header className="bg-white border-b border-poalim-border sticky top-0 z-50">
       {/* Top Navigation */}
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center py-2 text-sm">
           <div className="flex items-center gap-6">
-            <a href="#" className="text-gray-600 hover:text-poalim-blue">International</a>
-            <a href="#" className="text-gray-600 hover:text-poalim-blue">العربية</a>
-            <a href="#" className="text-gray-600 hover:text-poalim-blue">יצירת קשר</a>
-            <a href="#" className="text-gray-600 hover:text-poalim-blue">סניפים</a>
-            <a href="#" className="text-gray-600 hover:text-poalim-blue">חיפוש</a>
+            {/* Keep existing top nav links but update hover colors */}
+            <a href="#" className="text-poalim-text/60 hover:text-poalim-red">International</a>
+            <a href="#" className="text-poalim-text/60 hover:text-poalim-red">العربية</a>
+            <a href="#" className="text-poalim-text/60 hover:text-poalim-red">יצירת קשר</a>
+            <a href="#" className="text-poalim-text/60 hover:text-poalim-red">סניפים</a>
+            <a href="#" className="text-poalim-text/60 hover:text-poalim-red">חיפוש</a>
           </div>
           <div className="flex items-center gap-6">
-            <a href="#" className="text-gray-600 hover:text-poalim-blue">Poalim Wonder</a>
-            <a href="#" className="text-gray-600 hover:text-poalim-blue">חטיבה עסקית</a>
-            <a href="#" className="text-gray-600 hover:text-poalim-blue">לקוח עסקי</a>
-            <a href="#" className="text-gray-600 hover:text-poalim-blue">לקוח פרטי</a>
+            {/* Keep existing right nav links but update hover colors */}
+            <a href="#" className="text-poalim-text/60 hover:text-poalim-red">Poalim Wonder</a>
+            <a href="#" className="text-poalim-text/60 hover:text-poalim-red">חטיבה עסקית</a>
+            <a href="#" className="text-poalim-text/60 hover:text-poalim-red">לקוח עסקי</a>
+            <a href="#" className="text-poalim-text/60 hover:text-poalim-red">לקוח פרטי</a>
           </div>
         </div>
       </div>

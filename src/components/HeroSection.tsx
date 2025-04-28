@@ -4,17 +4,17 @@ import { ChevronLeft } from 'lucide-react';
 
 const HeroSection: React.FC = () => {
   return (
-    <div className="bg-white border-b border-gray-200">
+    <div className="bg-white border-b border-poalim-border">
       <div className="container mx-auto px-4 py-12 md:py-16">
         <div className="flex flex-col md:flex-row items-center gap-12">
           <div className="md:w-1/2">
             <div className="space-y-6 text-right">
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-poalim-navy leading-tight">
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-poalim-text leading-tight">
                 <span className="text-poalim-red">החזרי משכנתא</span>
                 <br />
                 גמישים לחיים משתנים
               </h1>
-              <p className="text-lg md:text-xl text-gray-600 max-w-lg">
+              <p className="text-lg md:text-xl text-poalim-text/80 max-w-lg">
                 פתרון חכם להקטנת תשלומי המשכנתא בתקופות עמוסות פיננסית,
                 עם פריסה חכמה לאורך יתרת תקופת ההלוואה
               </p>
@@ -29,7 +29,7 @@ const HeroSection: React.FC = () => {
                 <Button 
                   size="lg"
                   variant="outline" 
-                  className="border-poalim-red text-poalim-red hover:bg-poalim-red/10"
+                  className="border-poalim-red text-poalim-red hover:bg-poalim-light"
                 >
                   לפרטים נוספים
                 </Button>
