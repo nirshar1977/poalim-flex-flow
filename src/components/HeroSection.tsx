@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { ChevronLeft } from 'lucide-react';
@@ -39,16 +38,16 @@ const HeroSection: React.FC = () => {
           </div>
           <div className="md:w-1/2">
             <div className="relative">
-              <div className="absolute -z-10 w-72 h-72 bg-poalim-red/20 rounded-full -right-10 -top-10 blur-3xl"></div>
-              <div className="absolute -z-10 w-72 h-72 bg-poalim-red/20 rounded-full -left-10 -bottom-10 blur-3xl"></div>
-              <div className="bg-white p-6 rounded-2xl card-shadow">
+              <div className="absolute -z-10 w-72 h-72 bg-poalim-red/10 rounded-full -right-10 -top-10 blur-3xl"></div>
+              <div className="absolute -z-10 w-72 h-72 bg-poalim-red/10 rounded-full -left-10 -bottom-10 blur-3xl"></div>
+              <div className="bg-white p-6 rounded-2xl shadow-lg border border-gray-100">
                 <div className="flex justify-between items-center mb-6">
                   <div>
                     <h3 className="text-lg font-bold text-poalim-navy">תשלום משכנתא חודשי</h3>
                     <p className="text-sm text-gray-500">תשלום גמיש עבור 15/09/2025</p>
                   </div>
-                  <div className="bg-poalim-lightBlue p-2 rounded-full">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-poalim-blue">
+                  <div className="bg-poalim-red/10 p-2 rounded-full">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-poalim-red">
                       <path d="M21 7.5V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-1.5"></path>
                       <path d="M16 2v4"></path>
                       <path d="M8 2v4"></path>
@@ -60,27 +59,27 @@ const HeroSection: React.FC = () => {
                   </div>
                 </div>
 
-                <div className="bg-poalim-gray rounded-xl p-4 mb-6">
+                <div className="bg-poalim-red/5 rounded-xl p-4 mb-6">
                   <div className="flex justify-between mb-2">
-                    <span className="text-gray-500">תשלום רגיל:</span>
-                    <span className="font-bold">₪5,200</span>
+                    <span className="text-gray-600">תשלום רגיל:</span>
+                    <span className="font-bold text-poalim-navy">₪5,200</span>
                   </div>
                   <div className="flex justify-between items-center">
-                    <span className="text-poalim-teal font-medium">תשלום מופחת Flex:</span>
-                    <span className="font-bold text-xl text-poalim-teal">₪3,700</span>
+                    <span className="text-poalim-red font-medium">תשלום מופחת Flex:</span>
+                    <span className="font-bold text-xl text-poalim-red">₪3,700</span>
                   </div>
                   <div className="flex justify-between items-center mt-2">
-                    <span className="text-green-500 text-sm">חיסכון חודשי:</span>
-                    <span className="font-bold text-green-500">₪1,500</span>
+                    <span className="text-poalim-red text-sm">חיסכון חודשי:</span>
+                    <span className="font-bold text-poalim-red">₪1,500</span>
                   </div>
                 </div>
 
                 <div className="mb-4">
-                  <h4 className="text-sm font-medium text-gray-500 mb-2">פריסת ההפרש</h4>
+                  <h4 className="text-sm font-medium text-gray-600 mb-2">פריסת ההפרש</h4>
                   <p className="text-xs text-gray-500">ההפרש בסך 1,500 ש"ח יתחלק שווה על פני 12 החודשים הבאים</p>
                 </div>
 
-                <Button className="w-full bg-poalim-teal hover:bg-poalim-blue">
+                <Button className="w-full bg-poalim-red hover:bg-poalim-red/90 text-white">
                   אישור ההפחתה
                 </Button>
               </div>
