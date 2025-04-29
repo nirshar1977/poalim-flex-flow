@@ -84,7 +84,7 @@ export const usePaymentCalculator = () => {
   
   // Calculate bank fees based on the postpone period and repay months
   const baseFeePercentage = 0.5; // Base fee percentage
-  const bankFeePercentage = baseFeePercentage + (repayMonths * 0.1); // Fee increases with more months
+  const bankFeePercentage = baseFeePercentage + (repayMonths * 0.7); // Fee increases with more months
   const bankFeeAmount = Math.round((totalPostponedAmount * bankFeePercentage) / 100);
 
   const handleSelectUser = (userId: string) => {
@@ -114,7 +114,7 @@ export const usePaymentCalculator = () => {
   const handleConfirm = () => {
     toast({
       title: "בקשת גמישות נשלחה בהצלחה!",
-      description: `התשלום הופחת ב-${reductionAmount.toLocaleString()} ₪ למשך ${postponeMonths} חודשים. ההפרש בסך ${totalPostponedAmount.toLocaleString()} ₪ יתחלק על פני ${repayMonths} החודשים הבאים.`,
+      description: `התשלום נשלח לאישור סופי : בקשה להפחתה זמנית ב-${reductionAmount.toLocaleString()} ₪ למשך ${postponeMonths} חודשים. ההפרש בסך ${totalPostponedAmount.toLocaleString()} ₪ יתחלק על פני ${repayMonths} החודשים הבאים.`,
       duration: 5000,
     });
     setIsConfirming(false);
