@@ -52,18 +52,18 @@ const PaymentSummary: React.FC<PaymentSummaryProps> = ({
         </div>
       </div>
       
-      <div className="bg-gray-100 p-3 rounded-lg">
+      <div className="bg-gray-100 p-3 rounded-lg" dir='ltr'>
         <div className="flex justify-between text-sm">
           <span className="font-bold">{formatCurrency(totalPostponedAmount)} ₪</span>
-          <span>סכום דחייה כולל:</span>
+          <span dir='rtl'>סכום דחייה כולל:</span>
         </div>
         <div className="flex justify-between text-sm mt-1">
           <span className="font-bold text-poalim-red">{formatCurrency(bankFeeAmount)} ₪</span>
-          <span>עמלה בגין ביצוע פעולה:</span>
+          <span dir='rtl'>עמלה בגין ביצוע פעולה:</span>
         </div>
         <div className="flex justify-between text-sm font-bold mt-2 pt-2 border-t border-gray-300">
           <span>{formatCurrency(totalWithFees)} ₪</span>
-          <span>סה"כ לפריסה:</span>
+          <span dir='rtl'>סה"כ לפריסה:</span>
         </div>
       </div>
     </div>

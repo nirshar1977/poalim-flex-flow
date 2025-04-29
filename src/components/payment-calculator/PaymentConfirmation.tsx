@@ -25,7 +25,7 @@ const PaymentConfirmation: React.FC<PaymentConfirmationProps> = ({
   const totalWithFees = totalPostponedAmount + bankFeeAmount;
   
   return (
-    <div className="space-y-4">
+    <div className="space-y-4" dir='ltr'>
       <div className="bg-poalim-lightRed p-4 rounded-lg text-center">
         <h5 className="font-bold text-poalim-red flex items-center justify-center gap-2 mb-2">
           <CheckCircle className="h-5 w-5" />
@@ -37,15 +37,15 @@ const PaymentConfirmation: React.FC<PaymentConfirmationProps> = ({
         <div className="bg-white p-3 rounded-lg mb-3">
           <div className="flex justify-between text-sm mb-1">
             <span className="font-bold">{totalPostponedAmount.toLocaleString()} ₪</span>
-            <span>סכום דחייה כולל:</span>
+            <span dir='rtl' >סכום דחייה כולל:</span>
           </div>
           <div className="flex justify-between text-sm mb-1">
             <span className="font-bold text-poalim-red">{bankFeeAmount.toLocaleString()} ₪</span>
-            <span>עמלה בגין ביצוע פעולה:</span>
+            <span dir='rtl' >עמלה בגין ביצוע פעולה:</span>
           </div>
           <div className="flex justify-between text-sm font-bold border-t pt-1 mt-1">
             <span className="text-lg">{totalWithFees.toLocaleString()} ₪</span>
-            <span>סה"כ לתשלום עתידי:</span>
+            <span dir='rtl'>סה"כ לתשלום עתידי:</span>
           </div>
         </div>
         <p className="text-sm text-gray-600 mb-3">

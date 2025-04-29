@@ -115,6 +115,19 @@ const HeroSection: React.FC = () => {
               </Button>
             </div>
           </div>
+
+          <div className="md:w-1/2 flex justify-center">
+          <img 
+            src="https://www.bankhapoalim.co.il/sites/default/files/media/עמוס.png" 
+            alt="עמוס" 
+            width="460" 
+            height="580" 
+            className="object-contain"
+          />
+        </div>
+
+
+
           <div className="md:w-1/2">
             <div className="relative">
               <div className="absolute -z-10 w-72 h-72 bg-poalim-red/20 rounded-full -right-10 -top-10 blur-3xl"></div>
