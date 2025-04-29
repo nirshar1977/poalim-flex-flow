@@ -1,12 +1,11 @@
-
-import React from 'react';
-import { Button } from '@/components/ui/button';
-import { Alert, AlertDescription } from '@/components/ui/alert';
-import { Calendar, Minus, Plus, Coins, AlertCircle } from 'lucide-react';
-import PaymentSummary from './PaymentSummary';
-import PaymentConfirmation from './PaymentConfirmation';
-import { Slider } from '@/components/ui/slider';
-import { RiskProfile } from '@/services/riskProfiles';
+import React from "react";
+import { Button } from "@/components/ui/button";
+import { Alert, AlertDescription } from "@/components/ui/alert";
+import { Calendar, Minus, Plus, Coins, AlertCircle } from "lucide-react";
+import PaymentSummary from "./PaymentSummary";
+import PaymentConfirmation from "./PaymentConfirmation";
+import { Slider } from "@/components/ui/slider";
+import { RiskProfile } from "@/services/riskProfiles";
 
 interface PaymentFormProps {
   currentPayment: number;
@@ -51,7 +50,7 @@ const PaymentForm: React.FC<PaymentFormProps> = ({
   bankFeeAmount,
   bankFeePercentage,
   currentRiskProfile,
-  onShowEarlyRepayment
+  onShowEarlyRepayment,
 }) => {
   const handleIncrementMonths = () => {
     // Allow incrementing up to 3 or the remaining flex count (inclusive)
@@ -66,12 +65,13 @@ const PaymentForm: React.FC<PaymentFormProps> = ({
       setPostponeMonths(postponeMonths - 1);
     }
   };
-  
+
   // Calculate the actual remaining flex count after current selection
   const effectiveRemainingFlexCount = remainingFlexCount - postponeMonths;
-  
+
   // Show warning if stress period is coming
-  const hasStressPeriod = currentRiskProfile?.predictedFinancialStress?.nextStressPeriod;
+  const hasStressPeriod =
+    currentRiskProfile?.predictedFinancialStress?.nextStressPeriod;
 
   const handleReductionAmountChange = (value: number[]) => {
     setReductionAmount(value[0]);
@@ -87,33 +87,39 @@ const PaymentForm: React.FC<PaymentFormProps> = ({
         <Alert className="mb-4 bg-poalim-lightRed/30 border-poalim-red">
           <Calendar className="h-4 w-4 text-poalim-red" />
           <AlertDescription className="text-poalim-darkText">
-            נותרו לך {effectiveRemainingFlexCount >= 0 ? effectiveRemainingFlexCount : 0} פעמים להשתמש בגמישות משכנתא השנה
+            נותרו לך{" "}
+            {effectiveRemainingFlexCount >= 0 ? effectiveRemainingFlexCount : 0}{" "}
+            פעמים להשתמש בגמישות משכנתא השנה
           </AlertDescription>
         </Alert>
       )}
-      
+
       {hasStressPeriod && (
         <Alert className="mb-4 bg-amber-50 border-amber-200">
           <AlertCircle className="h-4 w-4 text-amber-500" />
           <AlertDescription className="text-amber-800">
-            <span className="font-bold">תחזית AI:</span> זיהינו תקופה פיננסית מאתגרת צפויה ב-{currentRiskProfile?.predictedFinancialStress?.nextStressPeriod}
+            <span className="font-bold">תחזית AI:</span> זיהינו תקופה פיננסית
+            מאתגרת צפויה ב-
+            {currentRiskProfile?.predictedFinancialStress?.nextStressPeriod}
           </AlertDescription>
         </Alert>
       )}
 
-      <div className="mb-8">
+      <div className="mb-8"  dir='ltr'>
         <div className="flex justify-between mb-2">
           <span className="font-bold text-lg">{currentPayment} ₪</span>
-          <label className="text-gray-600 font-medium">סכום תשלום חודשי נוכחי:</label>
+          <label className="text-gray-600 font-medium"  dir='rtl'>
+            סכום תשלום חודשי נוכחי:
+          </label>
         </div>
-        
+
         <div className="bg-gray-100 p-3 rounded-lg mb-6 text-center">
-          <span className="text-gray-500">התשלום החודשי הקבוע שלך</span>
+          <span className="text-gray-500" dir='rtl'>התשלום החודשי הקבוע שלך</span>
         </div>
 
         <div className="flex justify-between mb-2">
           <span className="font-bold text-poalim-red">{reductionAmount} ₪</span>
-          <label className="text-gray-600">סכום להפחתה מהתשלום הנוכחי:</label>
+          <label className="text-gray-600" dir='rtl'>סכום להפחתה מהתשלום הנוכחי:</label>
         </div>
         <Slider
           value={[reductionAmount]}
@@ -124,39 +130,9 @@ const PaymentForm: React.FC<PaymentFormProps> = ({
           className="mb-6"
         />
 
-        <div className="flex justify-between mb-2">
-          <span className="font-bold">{postponeMonths} {postponeMonths === 1 ? 'חודש' : 'חודשים'}</span>
-          <label className="text-gray-600">מספר חודשים להפחתת תשלום:</label>
-        </div>
-        
-        {/* Month selector with plus/minus buttons */}
-        <div className="flex items-center justify-center mb-6 bg-gray-100 rounded-md p-2">
-          <Button 
-            variant="outline" 
-            size="icon" 
-            onClick={handleDecrementMonths} 
-            disabled={postponeMonths <= 1}
-            className="h-8 w-8"
-          >
-            <Minus className="h-4 w-4" />
-          </Button>
-          <div className="px-6 font-bold text-lg">
-            {postponeMonths}
-          </div>
-          <Button 
-            variant="outline" 
-            size="icon" 
-            onClick={handleIncrementMonths} 
-            disabled={postponeMonths >= 3 || postponeMonths >= remainingFlexCount}
-            className="h-8 w-8"
-          >
-            <Plus className="h-4 w-4" />
-          </Button>
-        </div>
-
-        <div className="flex justify-between mb-2">
-          <span className="font-bold">{repayMonths} חודשים</span>
-          <label className="text-gray-600">לפרוס את ההפרש על פני:</label>
+        <div className="flex justify-between mb-2" >
+          <span className="font-bold" dir='rtl'>{repayMonths} חודשים</span>
+          <label className="text-gray-600" dir='rtl'>לפרוס את ההפרש על פני:</label>
         </div>
         <Slider
           value={[repayMonths]}
@@ -166,13 +142,44 @@ const PaymentForm: React.FC<PaymentFormProps> = ({
           onValueChange={handleRepayMonthsChange}
           className="mb-6"
         />
-        
+
         {/* <div className="bg-amber-50 border border-amber-200 rounded-lg p-4 mb-6">
           <div className="flex justify-between text-sm">
             <span className="font-bold">{bankFeeAmount} ₪</span>
             <span className="text-gray-700">עמלת הבנק ({bankFeePercentage.toFixed(1)}%):</span>
           </div>
         </div> */}
+
+        <div className="flex justify-between mb-2">
+          <span className="font-bold">
+            {postponeMonths} {postponeMonths === 1 ? "חודש" : "חודשים"}
+          </span>
+          <label className="text-gray-600" dir='rtl'>מספר חודשים להפחתת תשלום:</label>
+        </div>
+        {/* Month selector with plus/minus buttons */}
+        <div className="flex items-center justify-center mb-6 bg-gray-100 rounded-md p-2">
+          <Button
+            variant="outline"
+            size="icon"
+            onClick={handleDecrementMonths}
+            disabled={postponeMonths <= 1}
+            className="h-8 w-8"
+          >
+            <Minus className="h-4 w-4" />
+          </Button>
+          <div className="px-6 font-bold text-lg">{postponeMonths}</div>
+          <Button
+            variant="outline"
+            size="icon"
+            onClick={handleIncrementMonths}
+            disabled={
+              postponeMonths >= 3 || postponeMonths >= remainingFlexCount
+            }
+            className="h-8 w-8"
+          >
+            <Plus className="h-4 w-4" />
+          </Button>
+        </div>
       </div>
 
       <PaymentSummary
@@ -188,12 +195,15 @@ const PaymentForm: React.FC<PaymentFormProps> = ({
 
       {!isConfirming ? (
         <div className="space-y-4">
-          <Button onClick={handleApply} className="w-full bg-poalim-red hover:bg-poalim-red/90 text-lg py-6">
+          <Button
+            onClick={handleApply}
+            className="w-full bg-poalim-red hover:bg-poalim-red/90 text-lg py-6"
+          >
             הפחת את התשלום הקרוב
           </Button>
-          
-          <Button 
-            onClick={onShowEarlyRepayment} 
+
+          <Button
+            onClick={onShowEarlyRepayment}
             variant="outline"
             className="w-full border-green-600 text-green-600 hover:bg-green-50 flex gap-2"
           >

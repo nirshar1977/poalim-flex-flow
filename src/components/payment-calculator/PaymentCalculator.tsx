@@ -92,7 +92,7 @@ const PaymentCalculator: React.FC = () => {
             
             <h3 className="text-xl font-bold text-poalim-darkText mb-6">הגדרת הפחתת תשלום</h3>
             
-            <PaymentForm
+            <PaymentForm 
               currentPayment={currentPayment}
               reductionAmount={reductionAmount}
               setReductionAmount={setReductionAmount}
