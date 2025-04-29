@@ -1,6 +1,5 @@
 
 import React from 'react';
-import { Slider } from '@/components/ui/slider';
 import { Button } from '@/components/ui/button';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Calendar, Minus, Plus } from 'lucide-react';
