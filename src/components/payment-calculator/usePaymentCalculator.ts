@@ -9,8 +9,12 @@ export const usePaymentCalculator = () => {
   const [currentUser, setCurrentUser] = useState<UserMortgageProfile>(getDefaultUser());
   const [currentPayment, setCurrentPayment] = useState(currentUser.currentPayment);
   const [reductionAmount, setReductionAmount] = useState(currentUser.recommendedReduction || 1500);
+  const [postponeMonths, setPostponeMonths] = useState(1);
   const [repayMonths, setRepayMonths] = useState(12);
   const [isConfirming, setIsConfirming] = useState(false);
+  
+  const MAX_FLEX_PER_YEAR = 3;
+  const remainingFlexCount = MAX_FLEX_PER_YEAR - currentUser.flexUsedThisYear;
   
   // Update user data when selectedUserId changes
   useEffect(() => {
@@ -19,12 +23,14 @@ export const usePaymentCalculator = () => {
       setCurrentUser(user);
       setCurrentPayment(user.currentPayment);
       setReductionAmount(user.recommendedReduction || Math.round(user.currentPayment * 0.25));
+      setPostponeMonths(1); // Reset postpone months when switching users
     }
   }, [selectedUserId]);
 
   // Calculate adjusted payments
   const reducedPayment = currentPayment - reductionAmount;
-  const monthlyExtra = Math.ceil(reductionAmount / repayMonths);
+  const totalPostponedAmount = reductionAmount * postponeMonths;
+  const monthlyExtra = Math.ceil(totalPostponedAmount / repayMonths);
   const futurePayment = currentPayment + monthlyExtra;
 
   const handleSelectUser = (userId: string) => {
@@ -32,13 +38,22 @@ export const usePaymentCalculator = () => {
   };
 
   const handleApply = () => {
+    if (postponeMonths > remainingFlexCount) {
+      toast({
+        title: "חריגה ממכסת הגמישות השנתית",
+        description: `ניתן להשתמש בגמישות עוד ${remainingFlexCount} פעמים השנה`,
+        variant: "destructive",
+        duration: 5000,
+      });
+      return;
+    }
     setIsConfirming(true);
   };
   
   const handleConfirm = () => {
     toast({
       title: "בקשת גמישות נשלחה בהצלחה!",
-      description: `התשלום הקרוב הופחת ב-${reductionAmount} ₪. ההפרש יתחלק על פני ${repayMonths} החודשים הבאים.`,
+      description: `התשלום הופחת ב-${reductionAmount} ₪ למשך ${postponeMonths} חודשים. ההפרש בסך ${totalPostponedAmount} ₪ יתחלק על פני ${repayMonths} החודשים הבאים.`,
       duration: 5000,
     });
     setIsConfirming(false);
@@ -52,17 +67,19 @@ export const usePaymentCalculator = () => {
   const generateChartData = () => {
     const data = [];
     
-    // Current month with reduced payment
-    data.push({
-      name: 'חודש נוכחי',
-      תשלום: reducedPayment,
-      תוספת: 0
-    });
+    // Current months with reduced payment
+    for (let i = 0; i < postponeMonths; i++) {
+      data.push({
+        name: i === 0 ? 'חודש נוכחי' : `חודש ${i + 1}`,
+        תשלום: reducedPayment,
+        תוספת: 0
+      });
+    }
 
     // Future months with increased payment
-    for (let i = 1; i <= 6; i++) {
+    for (let i = 0; i < 6; i++) {
       data.push({
-        name: `חודש ${i + 1}`,
+        name: `חודש ${postponeMonths + i + 1}`,
         תשלום: currentPayment,
         תוספת: monthlyExtra
       });
@@ -79,6 +96,8 @@ export const usePaymentCalculator = () => {
     setCurrentPayment,
     reductionAmount,
     setReductionAmount,
+    postponeMonths,
+    setPostponeMonths,
     repayMonths,
     setRepayMonths,
     reducedPayment,
@@ -88,6 +107,9 @@ export const usePaymentCalculator = () => {
     handleApply,
     handleConfirm,
     handleCancel,
-    generateChartData
+    generateChartData,
+    remainingFlexCount,
+    MAX_FLEX_PER_YEAR,
+    totalPostponedAmount
   };
 };

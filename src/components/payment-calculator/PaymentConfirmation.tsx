@@ -6,6 +6,8 @@ import { CheckCircle } from 'lucide-react';
 interface PaymentConfirmationProps {
   reductionAmount: number;
   repayMonths: number;
+  postponeMonths: number;
+  totalPostponedAmount: number;
   onConfirm: () => void;
   onCancel: () => void;
 }
@@ -13,6 +15,8 @@ interface PaymentConfirmationProps {
 const PaymentConfirmation: React.FC<PaymentConfirmationProps> = ({
   reductionAmount,
   repayMonths,
+  postponeMonths,
+  totalPostponedAmount,
   onConfirm,
   onCancel
 }) => {
@@ -24,9 +28,9 @@ const PaymentConfirmation: React.FC<PaymentConfirmationProps> = ({
           אישור בקשת הפחתת תשלום
         </h5>
         <p className="text-sm text-gray-600 mb-2">
-          התשלום הקרוב יופחת ב-{reductionAmount} ₪
+          התשלום יופחת ב-{reductionAmount} ₪ למשך {postponeMonths} {postponeMonths === 1 ? 'חודש' : 'חודשים'}
           <br />
-          וההפרש יתחלק על פני {repayMonths} החודשים הבאים
+          סכום כולל של {totalPostponedAmount} ₪ יתחלק על פני {repayMonths} החודשים הבאים
         </p>
         <Button 
           onClick={onConfirm} 

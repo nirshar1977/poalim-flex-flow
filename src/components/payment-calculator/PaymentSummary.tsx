@@ -7,6 +7,8 @@ interface PaymentSummaryProps {
   reductionAmount: number;
   futurePayment: number;
   repayMonths: number;
+  postponeMonths: number;
+  totalPostponedAmount: number;
 }
 
 const PaymentSummary: React.FC<PaymentSummaryProps> = ({
@@ -14,7 +16,9 @@ const PaymentSummary: React.FC<PaymentSummaryProps> = ({
   reducedPayment,
   reductionAmount,
   futurePayment,
-  repayMonths
+  repayMonths,
+  postponeMonths,
+  totalPostponedAmount
 }) => {
   return (
     <div className="bg-white p-4 rounded-xl mb-6">
@@ -28,12 +32,14 @@ const PaymentSummary: React.FC<PaymentSummaryProps> = ({
         <div className="bg-green-100 p-3 rounded-lg">
           <p className="text-sm text-gray-600">תשלום מופחת</p>
           <p className="text-xl font-bold text-green-600">{reducedPayment} ₪</p>
-          <p className="text-xs text-green-500">חיסכון: {reductionAmount} ₪</p>
+          <p className="text-xs text-green-500">חיסכון: {reductionAmount} ₪ לחודש</p>
+          <p className="text-xs text-green-500">למשך: {postponeMonths} {postponeMonths === 1 ? 'חודש' : 'חודשים'}</p>
+          <p className="text-xs font-medium text-green-600">סה״כ חיסכון: {totalPostponedAmount} ₪</p>
         </div>
       </div>
       
       <div className="text-center p-3 rounded-lg border border-poalim-red bg-poalim-lightRed/30">
-        <p className="text-sm text-gray-600">תשלום בחודשים הבאים</p>
+        <p className="text-sm text-gray-600">תשלום לאחר תקופת ההפחתה</p>
         <p className="text-lg font-bold text-poalim-red">{futurePayment} ₪</p>
         <p className="text-xs text-gray-500">למשך {repayMonths} חודשים</p>
       </div>

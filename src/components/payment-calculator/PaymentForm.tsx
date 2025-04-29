@@ -2,6 +2,8 @@
 import React from 'react';
 import { Slider } from '@/components/ui/slider';
 import { Button } from '@/components/ui/button';
+import { Alert, AlertDescription } from '@/components/ui/alert';
+import { Calendar } from 'lucide-react';
 import PaymentSummary from './PaymentSummary';
 import PaymentConfirmation from './PaymentConfirmation';
 
@@ -10,6 +12,8 @@ interface PaymentFormProps {
   setCurrentPayment: (value: number) => void;
   reductionAmount: number;
   setReductionAmount: (value: number) => void;
+  postponeMonths: number;
+  setPostponeMonths: (value: number) => void;
   repayMonths: number;
   setRepayMonths: (value: number) => void;
   reducedPayment: number;
@@ -18,6 +22,9 @@ interface PaymentFormProps {
   handleApply: () => void;
   handleConfirm: () => void;
   handleCancel: () => void;
+  remainingFlexCount: number;
+  MAX_FLEX_PER_YEAR: number;
+  totalPostponedAmount: number;
 }
 
 const PaymentForm: React.FC<PaymentFormProps> = ({
@@ -25,6 +32,8 @@ const PaymentForm: React.FC<PaymentFormProps> = ({
   setCurrentPayment,
   reductionAmount,
   setReductionAmount,
+  postponeMonths,
+  setPostponeMonths,
   repayMonths,
   setRepayMonths,
   reducedPayment,
@@ -32,10 +41,22 @@ const PaymentForm: React.FC<PaymentFormProps> = ({
   isConfirming,
   handleApply,
   handleConfirm,
-  handleCancel
+  handleCancel,
+  remainingFlexCount,
+  MAX_FLEX_PER_YEAR,
+  totalPostponedAmount
 }) => {
   return (
     <>
+      {remainingFlexCount < MAX_FLEX_PER_YEAR && (
+        <Alert className="mb-4 bg-poalim-lightRed/30 border-poalim-red">
+          <Calendar className="h-4 w-4 text-poalim-red" />
+          <AlertDescription className="text-poalim-darkText">
+            נותרו לך {remainingFlexCount} פעמים להשתמש בגמישות משכנתא השנה
+          </AlertDescription>
+        </Alert>
+      )}
+
       <div className="mb-8">
         <div className="flex justify-between mb-2">
           <label className="text-gray-600">סכום תשלום חודשי נוכחי:</label>
@@ -68,6 +89,21 @@ const PaymentForm: React.FC<PaymentFormProps> = ({
         />
 
         <div className="flex justify-between mb-2">
+          <label className="text-gray-600">מספר חודשים להפחתת תשלום:</label>
+          <span className="font-bold">{postponeMonths} {postponeMonths === 1 ? 'חודש' : 'חודשים'}</span>
+        </div>
+        <Slider
+          value={[postponeMonths]}
+          min={1}
+          max={Math.min(3, remainingFlexCount)}
+          step={1}
+          onValueChange={(value) => {
+            setPostponeMonths(value[0]);
+          }}
+          className="mb-6"
+        />
+
+        <div className="flex justify-between mb-2">
           <label className="text-gray-600">לפרוס את ההפרש על פני:</label>
           <span className="font-bold">{repayMonths} חודשים</span>
         </div>
@@ -89,6 +125,8 @@ const PaymentForm: React.FC<PaymentFormProps> = ({
         reductionAmount={reductionAmount}
         futurePayment={futurePayment}
         repayMonths={repayMonths}
+        postponeMonths={postponeMonths}
+        totalPostponedAmount={totalPostponedAmount}
       />
 
       {!isConfirming ? (
@@ -99,6 +137,8 @@ const PaymentForm: React.FC<PaymentFormProps> = ({
         <PaymentConfirmation
           reductionAmount={reductionAmount}
           repayMonths={repayMonths}
+          postponeMonths={postponeMonths}
+          totalPostponedAmount={totalPostponedAmount}
           onConfirm={handleConfirm}
           onCancel={handleCancel}
         />

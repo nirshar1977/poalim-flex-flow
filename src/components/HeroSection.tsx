@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft } from 'lucide-react';
+import { ArrowLeft, Calendar } from 'lucide-react';
 import { getUser, getDefaultUser, UserMortgageProfile } from '@/services/mockUserData';
 
 const HeroSection: React.FC = () => {
@@ -78,15 +78,7 @@ const HeroSection: React.FC = () => {
                     <p className="text-sm text-gray-500">תשלום גמיש עבור {currentUser.name}</p>
                   </div>
                   <div className="bg-poalim-lightRed p-2 rounded-full">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-poalim-red">
-                      <path d="M21 7.5V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-1.5"></path>
-                      <path d="M16 2v4"></path>
-                      <path d="M8 2v4"></path>
-                      <path d="M3 10h18"></path>
-                      <path d="M18 21v-5.5c0-1.1-.9-2-2-2h-1.5"></path>
-                      <path d="M9.5 21a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"></path>
-                      <path d="M14.195 16.055c-.532-.47-1.232-.465-1.75 0"></path>
-                    </svg>
+                    <Calendar className="text-poalim-red h-5 w-5" />
                   </div>
                 </div>
 
@@ -103,11 +95,17 @@ const HeroSection: React.FC = () => {
                     <span className="text-green-500 text-sm">חיסכון חודשי:</span>
                     <span className="font-bold text-green-500">{currentUser.recommendedReduction} ₪</span>
                   </div>
+                  {currentUser.flexUsedThisYear > 0 && (
+                    <div className="flex justify-between items-center mt-2">
+                      <span className="text-poalim-red text-sm">גמישות שנוצלה השנה:</span>
+                      <span className="font-bold text-poalim-red">{currentUser.flexUsedThisYear}/3</span>
+                    </div>
+                  )}
                 </div>
 
                 <div className="mb-4">
                   <h4 className="text-sm font-medium text-gray-500 mb-2">פריסת ההפרש</h4>
-                  <p className="text-xs text-gray-500">ההפרש בסך {currentUser.recommendedReduction} ש"ח יתחלק שווה על פני 12 החודשים הבאים</p>
+                  <p className="text-xs text-gray-500">ניתן לדחות תשלומים עד 3 פעמים בשנה ולפרוס את ההחזרים עד 24 חודשים</p>
                 </div>
 
                 <Button 

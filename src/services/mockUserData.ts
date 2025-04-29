@@ -8,6 +8,7 @@ export interface UserMortgageProfile {
   totalBalance: number;
   loanStartDate: string;
   recommendedReduction?: number;
+  flexUsedThisYear: number; // Number of times flex has been used this year
 }
 
 export const mockUsers: UserMortgageProfile[] = [
@@ -20,6 +21,7 @@ export const mockUsers: UserMortgageProfile[] = [
     totalBalance: 950000,
     loanStartDate: "2018-05-15",
     recommendedReduction: 1500,
+    flexUsedThisYear: 1
   },
   {
     id: "user2",
@@ -30,6 +32,7 @@ export const mockUsers: UserMortgageProfile[] = [
     totalBalance: 1250000,
     loanStartDate: "2020-11-03",
     recommendedReduction: 2100,
+    flexUsedThisYear: 0
   },
   {
     id: "user3",
@@ -40,6 +43,7 @@ export const mockUsers: UserMortgageProfile[] = [
     totalBalance: 780000,
     loanStartDate: "2022-02-28",
     recommendedReduction: 900,
+    flexUsedThisYear: 2
   }
 ];
 

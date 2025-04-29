@@ -15,6 +15,8 @@ const PaymentCalculator: React.FC = () => {
     setCurrentPayment,
     reductionAmount,
     setReductionAmount,
+    postponeMonths,
+    setPostponeMonths,
     repayMonths,
     setRepayMonths,
     reducedPayment,
@@ -23,7 +25,10 @@ const PaymentCalculator: React.FC = () => {
     handleApply,
     handleConfirm,
     handleCancel,
-    generateChartData
+    generateChartData,
+    remainingFlexCount,
+    MAX_FLEX_PER_YEAR,
+    totalPostponedAmount
   } = usePaymentCalculator();
 
   const chartData = generateChartData();
@@ -57,9 +62,13 @@ const PaymentCalculator: React.FC = () => {
                 <span className="text-gray-600">תשלום חודשי:</span>
                 <span className="font-medium">{currentUser.currentPayment.toLocaleString()} ₪</span>
               </div>
-              <div className="flex justify-between">
+              <div className="flex justify-between mb-2">
                 <span className="text-gray-600">משך זמן נותר:</span>
                 <span className="font-medium">{Math.floor(currentUser.remainingMonths / 12)} שנים ו-{currentUser.remainingMonths % 12} חודשים</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-gray-600">גמישות שנוצלה השנה:</span>
+                <span className="font-medium">{currentUser.flexUsedThisYear} מתוך {MAX_FLEX_PER_YEAR}</span>
               </div>
             </div>
             
@@ -70,6 +79,8 @@ const PaymentCalculator: React.FC = () => {
               setCurrentPayment={setCurrentPayment}
               reductionAmount={reductionAmount}
               setReductionAmount={setReductionAmount}
+              postponeMonths={postponeMonths}
+              setPostponeMonths={setPostponeMonths}
               repayMonths={repayMonths}
               setRepayMonths={setRepayMonths}
               reducedPayment={reducedPayment}
@@ -78,6 +89,9 @@ const PaymentCalculator: React.FC = () => {
               handleApply={handleApply}
               handleConfirm={handleConfirm}
               handleCancel={handleCancel}
+              remainingFlexCount={remainingFlexCount}
+              MAX_FLEX_PER_YEAR={MAX_FLEX_PER_YEAR}
+              totalPostponedAmount={totalPostponedAmount}
             />
           </CardContent>
         </Card>
