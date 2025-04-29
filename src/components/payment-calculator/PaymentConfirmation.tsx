@@ -2,7 +2,7 @@
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { CheckCircle } from 'lucide-react';
-import { DialogTitle } from '@/components/ui/dialog';
+import { DialogDescription, DialogTitle } from '@/components/ui/dialog';
 
 interface PaymentConfirmationProps {
   reductionAmount: number;
@@ -29,14 +29,13 @@ const PaymentConfirmation: React.FC<PaymentConfirmationProps> = ({
   return (
     <div className="space-y-4" dir='ltr'>
       <div className="bg-poalim-lightRed p-4 rounded-lg text-center">
-        <DialogTitle className="sr-only">אישור בקשת הפחתת תשלום</DialogTitle>
-        <h5 className="font-bold text-poalim-red flex items-center justify-center gap-2 mb-2">
+        <DialogTitle className="font-bold text-poalim-red flex items-center justify-center gap-2 mb-2">
           <CheckCircle className="h-5 w-5" />
           אישור בקשת הפחתת תשלום
-        </h5>
-        <p className="text-sm text-gray-600 mb-2">
+        </DialogTitle>
+        <DialogDescription className="text-sm text-gray-600 mb-2">
           התשלום יופחת ב-{reductionAmount.toLocaleString()} ₪ למשך {postponeMonths} {postponeMonths === 1 ? 'חודש' : 'חודשים'}
-        </p>
+        </DialogDescription>
         <div className="bg-white p-3 rounded-lg mb-3">
           <div className="flex justify-between text-sm mb-1">
             <span className="font-bold">{totalPostponedAmount.toLocaleString()} ₪</span>
