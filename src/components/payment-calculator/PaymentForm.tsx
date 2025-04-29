@@ -47,7 +47,7 @@ const PaymentForm: React.FC<PaymentFormProps> = ({
   totalPostponedAmount
 }) => {
   const handleIncrementMonths = () => {
-    // Allow incrementing up to 3 or the remaining flex count
+    // Allow incrementing up to 3 or the remaining flex count (inclusive)
     if (postponeMonths < Math.min(3, remainingFlexCount)) {
       setPostponeMonths(postponeMonths + 1);
     }
