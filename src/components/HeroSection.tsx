@@ -4,6 +4,13 @@ import { Button } from '@/components/ui/button';
 import { ArrowLeft } from 'lucide-react';
 
 const HeroSection: React.FC = () => {
+  const scrollToSection = (id: string) => {
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <div className="gradient-bg">
       <div className="container mx-auto px-4 py-16 md:py-24">
@@ -18,7 +25,11 @@ const HeroSection: React.FC = () => {
               עם פריסה חכמה לאורך יתרת תקופת ההלוואה
             </p>
             <div className="flex flex-wrap gap-4 pt-4">
-              <Button size="lg" className="bg-poalim-red hover:bg-poalim-red/90">
+              <Button 
+                size="lg" 
+                className="bg-poalim-red hover:bg-poalim-red/90"
+                onClick={() => scrollToSection('how-it-works')}
+              >
                 לקבל פרטים נוספים
                 <ArrowLeft className="mr-2 h-4 w-4" />
               </Button>
@@ -26,6 +37,7 @@ const HeroSection: React.FC = () => {
                 size="lg"
                 variant="outline" 
                 className="border-poalim-red text-poalim-red hover:bg-poalim-lightRed"
+                onClick={() => scrollToSection('calculator')}
               >
                 לנסות את הסימולטור
               </Button>
