@@ -9,6 +9,10 @@ const HeroSection: React.FC = () => {
   const [reducedPayment, setReducedPayment] = useState(currentUser.currentPayment - (currentUser.recommendedReduction || 0));
   const [recommendedReduction, setRecommendedReduction] = useState(currentUser.recommendedReduction || 0);
   const [postponeMonths, setPostponeMonths] = useState(1);
+  const [flexUsedThisYear, setFlexUsedThisYear] = useState(currentUser.flexUsedThisYear);
+  const [maxFlexPerYear, setMaxFlexPerYear] = useState(3);
+  const [remainingFlexCount, setRemainingFlexCount] = useState(maxFlexPerYear - flexUsedThisYear);
+  const [effectiveRemainingFlexCount, setEffectiveRemainingFlexCount] = useState(remainingFlexCount - postponeMonths);
   
   // Listen for custom events to update the user data when selection changes in the simulator
   useEffect(() => {
@@ -20,6 +24,8 @@ const HeroSection: React.FC = () => {
           setCurrentUser(user);
           setReducedPayment(user.currentPayment - (user.recommendedReduction || 0));
           setRecommendedReduction(user.recommendedReduction || 0);
+          setFlexUsedThisYear(user.flexUsedThisYear);
+          setRemainingFlexCount(3 - user.flexUsedThisYear);
         }
       }
     };
@@ -31,6 +37,23 @@ const HeroSection: React.FC = () => {
         setReducedPayment(detail.reducedPayment);
         setRecommendedReduction(detail.reductionAmount);
         setPostponeMonths(detail.postponeMonths);
+        
+        // Update flex related counts
+        if (detail.flexUsedThisYear !== undefined) {
+          setFlexUsedThisYear(detail.flexUsedThisYear);
+        }
+        
+        if (detail.MAX_FLEX_PER_YEAR !== undefined) {
+          setMaxFlexPerYear(detail.MAX_FLEX_PER_YEAR);
+        }
+        
+        if (detail.remainingFlexCount !== undefined) {
+          setRemainingFlexCount(detail.remainingFlexCount);
+        }
+        
+        if (detail.effectiveRemainingFlexCount !== undefined) {
+          setEffectiveRemainingFlexCount(detail.effectiveRemainingFlexCount);
+        }
         
         // If userId is provided, update the current user
         if (detail.userId) {
@@ -126,10 +149,14 @@ const HeroSection: React.FC = () => {
                       <span className="font-bold text-poalim-red">{postponeMonths} חודשים</span>
                     </div>
                   )}
-                  {currentUser.flexUsedThisYear > 0 && (
+                  <div className="flex justify-between items-center mt-2">
+                    <span className="text-poalim-red text-sm">גמישות שנוצלה השנה:</span>
+                    <span className="font-bold text-poalim-red">{flexUsedThisYear + postponeMonths}/{maxFlexPerYear}</span>
+                  </div>
+                  {effectiveRemainingFlexCount < remainingFlexCount && effectiveRemainingFlexCount >= 0 && (
                     <div className="flex justify-between items-center mt-2">
-                      <span className="text-poalim-red text-sm">גמישות שנוצלה השנה:</span>
-                      <span className="font-bold text-poalim-red">{currentUser.flexUsedThisYear}/3</span>
+                      <span className="text-poalim-red text-sm">נותרו לך:</span>
+                      <span className="font-bold text-poalim-red">{effectiveRemainingFlexCount} פעמים</span>
                     </div>
                   )}
                 </div>

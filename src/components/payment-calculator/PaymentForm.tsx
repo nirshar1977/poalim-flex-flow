@@ -1,6 +1,5 @@
 
 import React from 'react';
-import { Slider } from '@/components/ui/slider';
 import { Button } from '@/components/ui/button';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Calendar, Minus, Plus } from 'lucide-react';
@@ -57,6 +56,9 @@ const PaymentForm: React.FC<PaymentFormProps> = ({
       setPostponeMonths(postponeMonths - 1);
     }
   };
+  
+  // Calculate the actual remaining flex count after current selection
+  const effectiveRemainingFlexCount = remainingFlexCount - postponeMonths;
 
   return (
     <>
@@ -64,7 +66,7 @@ const PaymentForm: React.FC<PaymentFormProps> = ({
         <Alert className="mb-4 bg-poalim-lightRed/30 border-poalim-red">
           <Calendar className="h-4 w-4 text-poalim-red" />
           <AlertDescription className="text-poalim-darkText">
-            נותרו לך {remainingFlexCount} פעמים להשתמש בגמישות משכנתא השנה
+            נותרו לך {effectiveRemainingFlexCount} פעמים להשתמש בגמישות משכנתא השנה
           </AlertDescription>
         </Alert>
       )}
@@ -74,27 +76,23 @@ const PaymentForm: React.FC<PaymentFormProps> = ({
           <label className="text-gray-600">סכום תשלום חודשי נוכחי:</label>
           <span className="font-bold">{currentPayment} ₪</span>
         </div>
-        <Slider
-          value={[currentPayment]}
-          min={2000}
-          max={10000}
-          step={100}
-          onValueChange={(values) => setCurrentPayment(values[0])}
-          className="mb-6"
-        />
+        <div className="w-full bg-gray-200 h-2 rounded-full mb-6">
+          <div
+            className="bg-primary h-2 rounded-full"
+            style={{ width: `${(currentPayment / 10000) * 100}%` }}
+          ></div>
+        </div>
 
         <div className="flex justify-between mb-2">
           <label className="text-gray-600">סכום להפחתה מהתשלום הנוכחי:</label>
           <span className="font-bold text-poalim-red">{reductionAmount} ₪</span>
         </div>
-        <Slider
-          value={[reductionAmount]}
-          min={500}
-          max={Math.min(3000, currentPayment - 1000)}
-          step={100}
-          onValueChange={(values) => setReductionAmount(values[0])}
-          className="mb-6"
-        />
+        <div className="w-full bg-gray-200 h-2 rounded-full mb-6">
+          <div
+            className="bg-poalim-red h-2 rounded-full"
+            style={{ width: `${(reductionAmount / Math.min(3000, currentPayment - 1000)) * 100}%` }}
+          ></div>
+        </div>
 
         <div className="flex justify-between mb-2">
           <label className="text-gray-600">מספר חודשים להפחתת תשלום:</label>
@@ -130,14 +128,12 @@ const PaymentForm: React.FC<PaymentFormProps> = ({
           <label className="text-gray-600">לפרוס את ההפרש על פני:</label>
           <span className="font-bold">{repayMonths} חודשים</span>
         </div>
-        <Slider
-          value={[repayMonths]}
-          min={3}
-          max={24}
-          step={1}
-          onValueChange={(values) => setRepayMonths(values[0])}
-          className="mb-6"
-        />
+        <div className="w-full bg-gray-200 h-2 rounded-full mb-6">
+          <div
+            className="bg-primary h-2 rounded-full"
+            style={{ width: `${(repayMonths / 24) * 100}%` }}
+          ></div>
+        </div>
       </div>
 
       <PaymentSummary
