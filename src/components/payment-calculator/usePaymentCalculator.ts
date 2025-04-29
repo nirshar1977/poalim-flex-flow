@@ -82,7 +82,7 @@ export const usePaymentCalculator = () => {
   const monthlyExtra = Math.ceil(totalPostponedAmount / repayMonths);
   const futurePayment = currentPayment + monthlyExtra;
   
-  // Calculate bank fees based on the postpone period
+  // Calculate bank fees based on the postpone period and repay months
   const baseFeePercentage = 0.5; // Base fee percentage
   const bankFeePercentage = baseFeePercentage + (repayMonths * 0.1); // Fee increases with more months
   const bankFeeAmount = Math.round((totalPostponedAmount * bankFeePercentage) / 100);
@@ -114,7 +114,7 @@ export const usePaymentCalculator = () => {
   const handleConfirm = () => {
     toast({
       title: "בקשת גמישות נשלחה בהצלחה!",
-      description: `התשלום הופחת ב-${reductionAmount} ₪ למשך ${postponeMonths} חודשים. ההפרש בסך ${totalPostponedAmount} ₪ יתחלק על פני ${repayMonths} החודשים הבאים.`,
+      description: `התשלום הופחת ב-${reductionAmount.toLocaleString()} ₪ למשך ${postponeMonths} חודשים. ההפרש בסך ${totalPostponedAmount.toLocaleString()} ₪ יתחלק על פני ${repayMonths} החודשים הבאים.`,
       duration: 5000,
     });
     setIsConfirming(false);
@@ -159,7 +159,7 @@ export const usePaymentCalculator = () => {
     }
 
     // Future months with increased payment
-    for (let i = 0; i < 6; i++) {
+    for (let i = 0; i < Math.min(repayMonths, 6); i++) {
       data.push({
         name: `חודש ${postponeMonths + i + 1}`,
         תשלום: currentPayment,

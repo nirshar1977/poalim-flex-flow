@@ -8,6 +8,8 @@ import UserSelector from '@/components/UserSelector';
 import EarlyRepaymentForm from './EarlyRepaymentForm';
 import RestrictedUserForm from './RestrictedUserForm';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
+import PaymentConfirmation from './PaymentConfirmation';
+import CustomerTrendAnalysis from './CustomerTrendAnalysis';
 
 const PaymentCalculator: React.FC = () => {
   const {
@@ -39,7 +41,8 @@ const PaymentCalculator: React.FC = () => {
     isRestrictedUser,
     handleCloseRestrictedUser,
     bankFeeAmount,
-    bankFeePercentage
+    bankFeePercentage,
+    monthlyExtra
   } = usePaymentCalculator();
 
   const chartData = generateChartData();
@@ -78,7 +81,7 @@ const PaymentCalculator: React.FC = () => {
                 <span className="text-gray-600">משך זמן נותר:</span>
               </div>
               <div className="flex justify-between">
-                <span className="font-medium">{currentUser.flexUsedThisYear + postponeMonths} מתוך {MAX_FLEX_PER_YEAR}</span>
+                <span className="font-medium">{currentUser.flexUsedThisYear} מתוך {MAX_FLEX_PER_YEAR}</span>
                 <span className="text-gray-600">גמישות שנוצלה השנה:</span>
               </div>
               
@@ -119,34 +122,48 @@ const PaymentCalculator: React.FC = () => {
 
         <Card className="border-none card-shadow overflow-hidden">
           <CardContent className="p-6">
+            <CustomerTrendAnalysis 
+              userId={selectedUserId}
+              riskProfile={currentRiskProfile}
+            />
             <h3 className="text-xl font-bold text-poalim-darkText mb-6">השוואת תשלומים</h3>
-            <PaymentChart data={chartData} maxValue={maxPaymentValue} />
+            <PaymentChart 
+              data={chartData} 
+              maxValue={maxPaymentValue}
+              postponeMonths={postponeMonths}
+              repayMonths={repayMonths}
+              monthlyExtra={monthlyExtra}
+            />
           </CardContent>
         </Card>
       </div>
       
       {/* Early Repayment Dialog */}
-      <Dialog open={isEarlyRepayment} onOpenChange={handleCloseEarlyRepayment}>
-        <DialogContent className="max-w-md p-0" directionRight>
-          {currentRiskProfile && (
-            <EarlyRepaymentForm 
-              riskProfile={currentRiskProfile}
-              onClose={handleCloseEarlyRepayment}
-              onConfirm={handleEarlyRepaymentConfirm}
-            />
-          )}
-        </DialogContent>
-      </Dialog>
+      {isEarlyRepayment && (
+        <Dialog open={isEarlyRepayment} onOpenChange={handleCloseEarlyRepayment}>
+          <DialogContent className="max-w-md p-0" directionRight>
+            {currentRiskProfile && (
+              <EarlyRepaymentForm 
+                riskProfile={currentRiskProfile}
+                onClose={handleCloseEarlyRepayment}
+                onConfirm={handleEarlyRepaymentConfirm}
+              />
+            )}
+          </DialogContent>
+        </Dialog>
+      )}
       
       {/* Restricted User Dialog */}
-      <Dialog open={isRestrictedUser} onOpenChange={handleCloseRestrictedUser}>
-        <DialogContent className="max-w-md p-0" directionRight>
-          <RestrictedUserForm 
-            user={currentUser}
-            onClose={handleCloseRestrictedUser}
-          />
-        </DialogContent>
-      </Dialog>
+      {isRestrictedUser && (
+        <Dialog open={isRestrictedUser} onOpenChange={handleCloseRestrictedUser}>
+          <DialogContent className="max-w-md p-0" directionRight>
+            <RestrictedUserForm 
+              user={currentUser}
+              onClose={handleCloseRestrictedUser}
+            />
+          </DialogContent>
+        </Dialog>
+      )}
     </section>
   );
 };

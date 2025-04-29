@@ -1,3 +1,4 @@
+
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { Alert, AlertDescription } from "@/components/ui/alert";
@@ -81,9 +82,13 @@ const PaymentForm: React.FC<PaymentFormProps> = ({
     setRepayMonths(value[0]);
   };
 
+  // Only show the flex count alert if there are remaining uses (or already using some)
+  // and if this is not a high-risk restricted user
+  const showFlexCountAlert = remainingFlexCount < MAX_FLEX_PER_YEAR && !currentRiskProfile?.restrictFlexUsage;
+
   return (
     <>
-      {remainingFlexCount < MAX_FLEX_PER_YEAR && remainingFlexCount > 0 && (
+      {showFlexCountAlert && (
         <Alert className="mb-4 bg-poalim-lightRed/30 border-poalim-red">
           <Calendar className="h-4 w-4 text-poalim-red" />
           <AlertDescription className="text-poalim-darkText">
@@ -105,10 +110,10 @@ const PaymentForm: React.FC<PaymentFormProps> = ({
         </Alert>
       )}
 
-      <div className="mb-8"  dir='ltr'>
+      <div className="mb-8" dir='ltr'>
         <div className="flex justify-between mb-2">
-          <span className="font-bold text-lg">{currentPayment} ₪</span>
-          <label className="text-gray-600 font-medium"  dir='rtl'>
+          <span className="font-bold text-lg">{currentPayment.toLocaleString()} ₪</span>
+          <label className="text-gray-600 font-medium" dir='rtl'>
             סכום תשלום חודשי נוכחי:
           </label>
         </div>
@@ -118,7 +123,7 @@ const PaymentForm: React.FC<PaymentFormProps> = ({
         </div>
 
         <div className="flex justify-between mb-2">
-          <span className="font-bold text-poalim-red">{reductionAmount} ₪</span>
+          <span className="font-bold text-poalim-red">{reductionAmount.toLocaleString()} ₪</span>
           <label className="text-gray-600" dir='rtl'>סכום להפחתה מהתשלום הנוכחי:</label>
         </div>
         <Slider
@@ -143,12 +148,13 @@ const PaymentForm: React.FC<PaymentFormProps> = ({
           className="mb-6"
         />
 
-        {/* <div className="bg-amber-50 border border-amber-200 rounded-lg p-4 mb-6">
+        <div className="bg-amber-50 border border-amber-200 rounded-lg p-4 mb-6">
           <div className="flex justify-between text-sm">
-            <span className="font-bold">{bankFeeAmount} ₪</span>
+            <span className="font-bold">{bankFeeAmount.toLocaleString()} ₪</span>
             <span className="text-gray-700">עמלת הבנק ({bankFeePercentage.toFixed(1)}%):</span>
           </div>
-        </div> */}
+          <p className="text-xs text-amber-600 mt-1 text-right">העמלה משתנה בהתאם למספר חודשי הפריסה</p>
+        </div>
 
         <div className="flex justify-between mb-2">
           <span className="font-bold">

@@ -7,7 +7,9 @@ import {
   YAxis,
   CartesianGrid,
   Tooltip,
-  ResponsiveContainer
+  ResponsiveContainer,
+  ReferenceLine,
+  Label
 } from 'recharts';
 
 interface PaymentChartProps {
@@ -17,9 +19,34 @@ interface PaymentChartProps {
     תוספת: number;
   }>;
   maxValue: number;
+  postponeMonths: number;
+  repayMonths: number;
+  monthlyExtra: number;
 }
 
-const PaymentChart: React.FC<PaymentChartProps> = ({ data, maxValue }) => {
+const PaymentChart: React.FC<PaymentChartProps> = ({ 
+  data, 
+  maxValue,
+  postponeMonths,
+  repayMonths,
+  monthlyExtra
+}) => {
+  // Calculate where the transition happens
+  const transitionPoint = postponeMonths;
+  const totalDisplayedMonths = Math.min(postponeMonths + repayMonths, postponeMonths + 6);
+
+  // Enhanced tooltip formatting
+  const formatTooltip = (value: number, name: string) => {
+    switch(name) {
+      case 'תשלום':
+        return [`${value.toLocaleString()} ₪`, 'תשלום בסיסי'];
+      case 'תוספת':
+        return [`${value.toLocaleString()} ₪`, 'תוספת החזר'];
+      default:
+        return [`${value.toLocaleString()} ₪`, name];
+    }
+  };
+
   return (
     <>
       <div className="bg-white rounded-xl p-4 h-[400px]">
@@ -45,7 +72,21 @@ const PaymentChart: React.FC<PaymentChartProps> = ({ data, maxValue }) => {
               axisLine={false}
               tickFormatter={(value) => `${value} ₪`}
             />
-            <Tooltip formatter={(value) => [`${value} ₪`]} />
+            <Tooltip 
+              formatter={formatTooltip}
+              contentStyle={{ 
+                backgroundColor: 'white', 
+                border: '1px solid #f0f0f0',
+                borderRadius: '8px',
+                padding: '10px',
+                textAlign: 'right',
+                direction: 'rtl'
+              }}
+              labelStyle={{
+                fontWeight: 'bold',
+                marginBottom: '5px'
+              }}
+            />
             <Area 
               type="monotone" 
               dataKey="תשלום" 
@@ -60,18 +101,59 @@ const PaymentChart: React.FC<PaymentChartProps> = ({ data, maxValue }) => {
               stroke="#D0021B" 
               fill="url(#colorExtra)" 
             />
+            
+            {/* Reference line to show the transition */}
+            {postponeMonths > 0 && (
+              <ReferenceLine 
+                x={data[transitionPoint-1]?.name} 
+                stroke="#D0021B" 
+                strokeDasharray="3 3"
+                strokeWidth={2}
+                >
+                <Label 
+                  value="סיום הפחתה" 
+                  position="insideTopRight"
+                  fill="#D0021B"
+                  fontSize={12}
+                />
+              </ReferenceLine>
+            )}
           </AreaChart>
         </ResponsiveContainer>
       </div>
       
-      <div className="mt-6 grid grid-cols-2 gap-4 text-center">
-        <div className="flex flex-col items-center">
-          <div className="h-3 w-10 rounded-full bg-poalim-red mb-2"></div>
-          <p className="text-sm text-gray-600">תשלום בסיסי</p>
+      <div className="mt-6 grid grid-cols-1 gap-4 text-center">
+        <div className="bg-gray-100 p-3 rounded-lg">
+          <h4 className="text-lg font-semibold mb-2">סיכום התשלומים</h4>
+          <div className="grid grid-cols-2 gap-2 mb-2">
+            <div className="bg-white p-2 rounded-lg">
+              <p className="text-sm text-gray-600">תקופת הפחתה</p>
+              <p className="font-bold">{postponeMonths} {postponeMonths === 1 ? 'חודש' : 'חודשים'}</p>
+            </div>
+            <div className="bg-white p-2 rounded-lg">
+              <p className="text-sm text-gray-600">תקופת החזר הפרש</p>
+              <p className="font-bold">{repayMonths} חודשים</p>
+            </div>
+            <div className="bg-white p-2 rounded-lg">
+              <p className="text-sm text-gray-600">תוספת חודשית</p>
+              <p className="font-bold text-poalim-red">{monthlyExtra.toLocaleString()} ₪</p>
+            </div>
+            <div className="bg-white p-2 rounded-lg">
+              <p className="text-sm text-gray-600">סך החזר לחודש</p>
+              <p className="font-bold text-poalim-red">{(monthlyExtra ? monthlyExtra : 0).toLocaleString()} ₪</p>
+            </div>
+          </div>
         </div>
-        <div className="flex flex-col items-center">
-          <div className="h-3 w-10 rounded-full bg-poalim-red/60 mb-2"></div>
-          <p className="text-sm text-gray-600">תוספת החזר הפרש</p>
+        
+        <div className="flex items-center justify-center gap-8">
+          <div className="flex flex-col items-center">
+            <div className="h-3 w-10 rounded-full bg-poalim-red mb-2"></div>
+            <p className="text-sm text-gray-600">תשלום בסיסי</p>
+          </div>
+          <div className="flex flex-col items-center">
+            <div className="h-3 w-10 rounded-full bg-poalim-red/60 mb-2"></div>
+            <p className="text-sm text-gray-600">תוספת החזר הפרש</p>
+          </div>
         </div>
       </div>
     </>

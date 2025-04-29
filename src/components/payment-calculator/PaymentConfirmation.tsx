@@ -23,6 +23,7 @@ const PaymentConfirmation: React.FC<PaymentConfirmationProps> = ({
   onCancel
 }) => {
   const totalWithFees = totalPostponedAmount + bankFeeAmount;
+  const monthlyAddition = Math.round(totalWithFees / repayMonths);
   
   return (
     <div className="space-y-4" dir='ltr'>
@@ -48,6 +49,21 @@ const PaymentConfirmation: React.FC<PaymentConfirmationProps> = ({
             <span dir='rtl'>סה"כ לתשלום עתידי:</span>
           </div>
         </div>
+        
+        <div className="bg-amber-50 border border-amber-200 p-3 rounded-lg mb-3">
+          <div className="flex justify-between text-sm mb-1">
+            <span className="font-bold text-lg">{monthlyAddition.toLocaleString()} ₪</span>
+            <span dir='rtl'>תוספת חודשית:</span>
+          </div>
+          <div className="flex justify-between text-sm mb-1">
+            <span dir='rtl'>{repayMonths} חודשים</span>
+            <span dir='rtl'>למשך:</span>
+          </div>
+          <p className="text-xs text-gray-600 mt-1 text-right">
+            הסכום יתווסף לתשלום החודשי הרגיל שלך לאחר תקופת ההפחתה
+          </p>
+        </div>
+        
         <p className="text-sm text-gray-600 mb-3">
           סכום של {totalWithFees.toLocaleString()} ₪ יתחלק על פני {repayMonths} החודשים הבאים
         </p>
