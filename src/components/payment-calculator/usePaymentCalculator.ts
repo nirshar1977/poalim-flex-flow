@@ -27,6 +27,23 @@ export const usePaymentCalculator = () => {
     }
   }, [selectedUserId]);
 
+  // Dispatch event when values change to update hero section
+  useEffect(() => {
+    // Create a custom event to notify the hero section about the changes
+    const event = new CustomEvent('paymentValuesChanged', {
+      detail: { 
+        currentPayment,
+        reducedPayment: currentPayment - reductionAmount,
+        reductionAmount,
+        postponeMonths,
+        repayMonths,
+        userId: selectedUserId
+      }
+    });
+    
+    window.dispatchEvent(event);
+  }, [currentPayment, reductionAmount, postponeMonths, repayMonths, selectedUserId]);
+
   // Calculate adjusted payments
   const reducedPayment = currentPayment - reductionAmount;
   const totalPostponedAmount = reductionAmount * postponeMonths;

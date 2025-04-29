@@ -6,6 +6,9 @@ import { getUser, getDefaultUser, UserMortgageProfile } from '@/services/mockUse
 
 const HeroSection: React.FC = () => {
   const [currentUser, setCurrentUser] = useState<UserMortgageProfile>(getDefaultUser());
+  const [reducedPayment, setReducedPayment] = useState(currentUser.currentPayment - (currentUser.recommendedReduction || 0));
+  const [recommendedReduction, setRecommendedReduction] = useState(currentUser.recommendedReduction || 0);
+  const [postponeMonths, setPostponeMonths] = useState(1);
   
   // Listen for custom events to update the user data when selection changes in the simulator
   useEffect(() => {
@@ -15,16 +18,38 @@ const HeroSection: React.FC = () => {
         const user = getUser(userId);
         if (user) {
           setCurrentUser(user);
+          setReducedPayment(user.currentPayment - (user.recommendedReduction || 0));
+          setRecommendedReduction(user.recommendedReduction || 0);
         }
       }
     };
 
-    // Add event listener
+    // Listen for payment value changes
+    const handlePaymentChange = (event: CustomEvent) => {
+      const detail = event.detail;
+      if (detail) {
+        setReducedPayment(detail.reducedPayment);
+        setRecommendedReduction(detail.reductionAmount);
+        setPostponeMonths(detail.postponeMonths);
+        
+        // If userId is provided, update the current user
+        if (detail.userId) {
+          const user = getUser(detail.userId);
+          if (user) {
+            setCurrentUser(user);
+          }
+        }
+      }
+    };
+
+    // Add event listeners
     window.addEventListener('userSelectionChanged' as any, handleUserChange);
+    window.addEventListener('paymentValuesChanged' as any, handlePaymentChange);
 
     // Cleanup
     return () => {
       window.removeEventListener('userSelectionChanged' as any, handleUserChange);
+      window.removeEventListener('paymentValuesChanged' as any, handlePaymentChange);
     };
   }, []);
 
@@ -89,12 +114,18 @@ const HeroSection: React.FC = () => {
                   </div>
                   <div className="flex justify-between items-center">
                     <span className="text-poalim-red font-medium">תשלום מופחת Flex:</span>
-                    <span className="font-bold text-xl text-poalim-red">{currentUser.currentPayment - currentUser.recommendedReduction!} ₪</span>
+                    <span className="font-bold text-xl text-poalim-red">{reducedPayment} ₪</span>
                   </div>
                   <div className="flex justify-between items-center mt-2">
                     <span className="text-green-500 text-sm">חיסכון חודשי:</span>
-                    <span className="font-bold text-green-500">{currentUser.recommendedReduction} ₪</span>
+                    <span className="font-bold text-green-500">{recommendedReduction} ₪</span>
                   </div>
+                  {postponeMonths > 1 && (
+                    <div className="flex justify-between items-center mt-2">
+                      <span className="text-poalim-red text-sm">למשך:</span>
+                      <span className="font-bold text-poalim-red">{postponeMonths} חודשים</span>
+                    </div>
+                  )}
                   {currentUser.flexUsedThisYear > 0 && (
                     <div className="flex justify-between items-center mt-2">
                       <span className="text-poalim-red text-sm">גמישות שנוצלה השנה:</span>

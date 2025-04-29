@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Slider } from '@/components/ui/slider';
 import { Button } from '@/components/ui/button';
@@ -124,16 +125,6 @@ const PaymentForm: React.FC<PaymentFormProps> = ({
             <Plus className="h-4 w-4" />
           </Button>
         </div>
-        
-        {/* Keep the slider as well, but make sure it works */}
-        <Slider
-          value={[postponeMonths]}
-          min={1}
-          max={Math.min(3, remainingFlexCount)}
-          step={1}
-          onValueChange={(values) => setPostponeMonths(values[0])}
-          className="mb-6"
-        />
 
         <div className="flex justify-between mb-2">
           <label className="text-gray-600">לפרוס את ההפרש על פני:</label>
