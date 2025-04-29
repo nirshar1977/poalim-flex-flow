@@ -41,7 +41,7 @@ const HowItWorks: React.FC = () => {
     {
       id: 4,
       title: "מודל גמיש",
-      description: "אפשרות לבחור עד 3-4 חודשים בשנה להפחתת תשלום וגם להגדיל תשלומים בחודשים חזקים להפחתת סך הריבית הכוללת.",
+      description: "אפשרות לבחור עד 3 חודשים בשנה להפחתת תשלום וגם להגדיל תשלומים בחודשים חזקים להפחתת סך הריבית הכוללת.",
       icon: (
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-10 h-10 text-poalim-red">
           <path d="M21 7.5V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-1.5"></path>

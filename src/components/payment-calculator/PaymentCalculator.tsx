@@ -78,7 +78,7 @@ const PaymentCalculator: React.FC = () => {
                 <span className="text-gray-600">משך זמן נותר:</span>
               </div>
               <div className="flex justify-between">
-                <span className="font-medium">{currentUser.flexUsedThisYear} מתוך {MAX_FLEX_PER_YEAR}</span>
+                <span className="font-medium">{currentUser.flexUsedThisYear + postponeMonths} מתוך {MAX_FLEX_PER_YEAR}</span>
                 <span className="text-gray-600">גמישות שנוצלה השנה:</span>
               </div>
               

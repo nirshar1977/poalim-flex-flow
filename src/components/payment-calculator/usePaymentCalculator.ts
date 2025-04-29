@@ -84,7 +84,7 @@ export const usePaymentCalculator = () => {
   
   // Calculate bank fees based on the postpone period
   const baseFeePercentage = 0.5; // Base fee percentage
-  const bankFeePercentage = baseFeePercentage + (postponeMonths * 0.1); // Fee increases with more months
+  const bankFeePercentage = baseFeePercentage + (repayMonths * 0.1); // Fee increases with more months
   const bankFeeAmount = Math.round((totalPostponedAmount * bankFeePercentage) / 100);
 
   const handleSelectUser = (userId: string) => {
