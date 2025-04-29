@@ -24,6 +24,7 @@ export const usePaymentCalculator = () => {
       setCurrentPayment(user.currentPayment);
       setReductionAmount(user.recommendedReduction || Math.round(user.currentPayment * 0.25));
       setPostponeMonths(1); // Reset postpone months when switching users
+      setRepayMonths(12); // Reset repay months to default
     }
   }, [selectedUserId]);
 

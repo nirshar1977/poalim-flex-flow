@@ -5,6 +5,7 @@ import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Calendar, Minus, Plus } from 'lucide-react';
 import PaymentSummary from './PaymentSummary';
 import PaymentConfirmation from './PaymentConfirmation';
+import { Slider } from '@/components/ui/slider';
 
 interface PaymentFormProps {
   currentPayment: number;
@@ -60,6 +61,14 @@ const PaymentForm: React.FC<PaymentFormProps> = ({
   // Calculate the actual remaining flex count after current selection
   const effectiveRemainingFlexCount = remainingFlexCount - postponeMonths;
 
+  const handleReductionAmountChange = (value: number[]) => {
+    setReductionAmount(value[0]);
+  };
+
+  const handleRepayMonthsChange = (value: number[]) => {
+    setRepayMonths(value[0]);
+  };
+
   return (
     <>
       {remainingFlexCount < MAX_FLEX_PER_YEAR && (
@@ -87,12 +96,14 @@ const PaymentForm: React.FC<PaymentFormProps> = ({
           <label className="text-gray-600">סכום להפחתה מהתשלום הנוכחי:</label>
           <span className="font-bold text-poalim-red">{reductionAmount} ₪</span>
         </div>
-        <div className="w-full bg-gray-200 h-2 rounded-full mb-6">
-          <div
-            className="bg-poalim-red h-2 rounded-full"
-            style={{ width: `${(reductionAmount / Math.min(3000, currentPayment - 1000)) * 100}%` }}
-          ></div>
-        </div>
+        <Slider
+          defaultValue={[reductionAmount]}
+          max={Math.min(3000, currentPayment - 1000)}
+          min={500}
+          step={100}
+          onValueChange={handleReductionAmountChange}
+          className="mb-6"
+        />
 
         <div className="flex justify-between mb-2">
           <label className="text-gray-600">מספר חודשים להפחתת תשלום:</label>
@@ -128,12 +139,14 @@ const PaymentForm: React.FC<PaymentFormProps> = ({
           <label className="text-gray-600">לפרוס את ההפרש על פני:</label>
           <span className="font-bold">{repayMonths} חודשים</span>
         </div>
-        <div className="w-full bg-gray-200 h-2 rounded-full mb-6">
-          <div
-            className="bg-primary h-2 rounded-full"
-            style={{ width: `${(repayMonths / 24) * 100}%` }}
-          ></div>
-        </div>
+        <Slider
+          defaultValue={[repayMonths]}
+          max={24}
+          min={6}
+          step={1}
+          onValueChange={handleRepayMonthsChange}
+          className="mb-6"
+        />
       </div>
 
       <PaymentSummary
