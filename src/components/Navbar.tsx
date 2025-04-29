@@ -4,6 +4,13 @@ import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 
 const Navbar: React.FC = () => {
+  const scrollToSection = (id: string) => {
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <header className="py-4 bg-white border-b border-gray-200 sticky top-0 z-50">
       <div className="container mx-auto px-4 flex justify-between items-center">
@@ -25,6 +32,7 @@ const Navbar: React.FC = () => {
           <Button 
             size="sm" 
             className="bg-poalim-red hover:bg-poalim-red/90 transition-colors"
+            onClick={() => scrollToSection('calculator')}
           >
             לחץ להתחיל
           </Button>

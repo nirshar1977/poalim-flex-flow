@@ -67,9 +67,7 @@ const PaymentForm: React.FC<PaymentFormProps> = ({
           min={2000}
           max={10000}
           step={100}
-          onValueChange={(value) => {
-            setCurrentPayment(value[0]);
-          }}
+          onValueChange={(values) => setCurrentPayment(values[0])}
           className="mb-6"
         />
 
@@ -82,9 +80,7 @@ const PaymentForm: React.FC<PaymentFormProps> = ({
           min={500}
           max={Math.min(3000, currentPayment - 1000)}
           step={100}
-          onValueChange={(value) => {
-            setReductionAmount(value[0]);
-          }}
+          onValueChange={(values) => setReductionAmount(values[0])}
           className="mb-6"
         />
 
@@ -97,9 +93,7 @@ const PaymentForm: React.FC<PaymentFormProps> = ({
           min={1}
           max={Math.min(3, remainingFlexCount)}
           step={1}
-          onValueChange={(value) => {
-            setPostponeMonths(value[0]);
-          }}
+          onValueChange={(values) => setPostponeMonths(values[0])}
           className="mb-6"
         />
 
@@ -112,9 +106,7 @@ const PaymentForm: React.FC<PaymentFormProps> = ({
           min={3}
           max={24}
           step={1}
-          onValueChange={(value) => {
-            setRepayMonths(value[0]);
-          }}
+          onValueChange={(values) => setRepayMonths(values[0])}
           className="mb-6"
         />
       </div>
