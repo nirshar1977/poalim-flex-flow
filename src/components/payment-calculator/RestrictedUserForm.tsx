@@ -5,7 +5,6 @@ import { Alert, AlertDescription } from '@/components/ui/alert';
 import { AlertCircle } from 'lucide-react';
 import { UserMortgageProfile } from '@/services/mockUserData';
 import { useToast } from '@/hooks/use-toast';
-import { DialogTitle, DialogDescription } from '@/components/ui/dialog';
 
 interface RestrictedUserFormProps {
   user: UserMortgageProfile;
@@ -27,10 +26,10 @@ const RestrictedUserForm: React.FC<RestrictedUserFormProps> = ({ user, onClose }
 
   return (
     <div className="bg-white p-6 rounded-xl">
-      <DialogTitle className="text-xl font-bold text-poalim-darkText mb-4 text-center">בקשה לייעוץ פיננסי</DialogTitle>
-      <DialogDescription className="text-center mb-4 text-gray-600">
+      <h3 className="text-xl font-bold text-poalim-darkText mb-4 text-center">בקשה לייעוץ פיננסי</h3>
+      <p className="text-center mb-4 text-gray-600">
         יועץ המשכנתאות שלנו ישמח להציע לך פתרונות מותאמים אישית
-      </DialogDescription>
+      </p>
       
       <Alert className="mb-6 bg-amber-50 border-amber-200">
         <AlertCircle className="h-4 w-4 text-amber-500" />

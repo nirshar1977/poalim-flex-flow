@@ -7,8 +7,7 @@ import PaymentChart from './PaymentChart';
 import UserSelector from '@/components/UserSelector';
 import EarlyRepaymentForm from './EarlyRepaymentForm';
 import RestrictedUserForm from './RestrictedUserForm';
-import { Dialog, DialogContent } from '@/components/ui/dialog';
-import PaymentConfirmation from './PaymentConfirmation';
+import { AlertDialog, AlertDialogContent } from '@/components/ui/alert-dialog';
 import CustomerTrendAnalysis from './CustomerTrendAnalysis';
 
 const PaymentCalculator: React.FC = () => {
@@ -140,8 +139,8 @@ const PaymentCalculator: React.FC = () => {
       
       {/* Early Repayment Dialog */}
       {isEarlyRepayment && (
-        <Dialog open={isEarlyRepayment} onOpenChange={handleCloseEarlyRepayment}>
-          <DialogContent className="max-w-md p-0" directionRight>
+        <AlertDialog open={isEarlyRepayment} onOpenChange={handleCloseEarlyRepayment}>
+          <AlertDialogContent className="max-w-md p-0">
             {currentRiskProfile && (
               <EarlyRepaymentForm 
                 riskProfile={currentRiskProfile}
@@ -149,20 +148,20 @@ const PaymentCalculator: React.FC = () => {
                 onConfirm={handleEarlyRepaymentConfirm}
               />
             )}
-          </DialogContent>
-        </Dialog>
+          </AlertDialogContent>
+        </AlertDialog>
       )}
       
       {/* Restricted User Dialog */}
       {isRestrictedUser && (
-        <Dialog open={isRestrictedUser} onOpenChange={handleCloseRestrictedUser}>
-          <DialogContent className="max-w-md p-0" directionRight>
+        <AlertDialog open={isRestrictedUser} onOpenChange={handleCloseRestrictedUser}>
+          <AlertDialogContent className="max-w-md p-0">
             <RestrictedUserForm 
               user={currentUser}
               onClose={handleCloseRestrictedUser}
             />
-          </DialogContent>
-        </Dialog>
+          </AlertDialogContent>
+        </AlertDialog>
       )}
     </section>
   );
