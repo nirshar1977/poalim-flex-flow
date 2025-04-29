@@ -5,6 +5,7 @@ import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Coins } from 'lucide-react';
 import { Slider } from '@/components/ui/slider';
 import { RiskProfile, formatCurrency, calculateBankFee } from '@/services/riskProfiles';
+import { DialogTitle } from '@/components/ui/dialog';
 
 interface EarlyRepaymentFormProps {
   riskProfile: RiskProfile;
@@ -47,7 +48,7 @@ const EarlyRepaymentForm: React.FC<EarlyRepaymentFormProps> = ({
 
   return (
     <div className="bg-white p-6 rounded-xl">
-      <h3 className="text-xl font-bold text-poalim-darkText mb-6 text-center">פירעון מוקדם</h3>
+      <DialogTitle className="text-xl font-bold text-poalim-darkText mb-6 text-center">פירעון מוקדם</DialogTitle>
       
       <Alert className="mb-6 bg-green-50 border-green-200">
         <Coins className="h-4 w-4 text-green-500" />

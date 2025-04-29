@@ -93,7 +93,7 @@ const PaymentCalculator: React.FC = () => {
               )}
             </div>
             
-            <h3 className="text-xl font-bold text-poalim-darkText mb-6">הגדרת הפחתת תשלום</h3>
+            <h3 className="text-xl font-bold text-poalim-darkText mb-6">הגדרת תשלומים</h3>
             
             <PaymentForm 
               currentPayment={currentPayment}
