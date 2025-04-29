@@ -41,7 +41,7 @@ const PaymentConfirmation: React.FC<PaymentConfirmationProps> = ({
           </div>
           <div className="flex justify-between text-sm mb-1">
             <span className="font-bold text-poalim-red">{bankFeeAmount.toLocaleString()} ₪</span>
-            <span>עמלת הבנק:</span>
+            <span>עמלה בגין ביצוע פעולה:</span>
           </div>
           <div className="flex justify-between text-sm font-bold border-t pt-1 mt-1">
             <span className="text-lg">{totalWithFees.toLocaleString()} ₪</span>

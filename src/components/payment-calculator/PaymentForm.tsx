@@ -167,12 +167,12 @@ const PaymentForm: React.FC<PaymentFormProps> = ({
           className="mb-6"
         />
         
-        <div className="bg-amber-50 border border-amber-200 rounded-lg p-4 mb-6">
+        {/* <div className="bg-amber-50 border border-amber-200 rounded-lg p-4 mb-6">
           <div className="flex justify-between text-sm">
             <span className="font-bold">{bankFeeAmount} ₪</span>
             <span className="text-gray-700">עמלת הבנק ({bankFeePercentage.toFixed(1)}%):</span>
           </div>
-        </div>
+        </div> */}
       </div>
 
       <PaymentSummary
