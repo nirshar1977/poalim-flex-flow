@@ -37,14 +37,12 @@ export const usePaymentCalculator = () => {
         reductionAmount,
         postponeMonths,
         repayMonths,
-        userId: selectedUserId,
-        remainingFlexCount: remainingFlexCount,
-        flexUsedThisYear: currentUser.flexUsedThisYear
+        userId: selectedUserId
       }
     });
     
     window.dispatchEvent(event);
-  }, [currentPayment, reductionAmount, postponeMonths, repayMonths, selectedUserId, remainingFlexCount, currentUser.flexUsedThisYear]);
+  }, [currentPayment, reductionAmount, postponeMonths, repayMonths, selectedUserId]);
 
   // Calculate adjusted payments
   const reducedPayment = currentPayment - reductionAmount;

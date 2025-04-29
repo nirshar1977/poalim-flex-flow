@@ -9,8 +9,6 @@ const HeroSection: React.FC = () => {
   const [reducedPayment, setReducedPayment] = useState(currentUser.currentPayment - (currentUser.recommendedReduction || 0));
   const [recommendedReduction, setRecommendedReduction] = useState(currentUser.recommendedReduction || 0);
   const [postponeMonths, setPostponeMonths] = useState(1);
-  const [remainingFlexCount, setRemainingFlexCount] = useState(3 - currentUser.flexUsedThisYear);
-  const [flexUsedThisYear, setFlexUsedThisYear] = useState(currentUser.flexUsedThisYear);
   
   // Listen for custom events to update the user data when selection changes in the simulator
   useEffect(() => {
@@ -22,8 +20,6 @@ const HeroSection: React.FC = () => {
           setCurrentUser(user);
           setReducedPayment(user.currentPayment - (user.recommendedReduction || 0));
           setRecommendedReduction(user.recommendedReduction || 0);
-          setFlexUsedThisYear(user.flexUsedThisYear);
-          setRemainingFlexCount(3 - user.flexUsedThisYear);
         }
       }
     };
@@ -35,15 +31,6 @@ const HeroSection: React.FC = () => {
         setReducedPayment(detail.reducedPayment);
         setRecommendedReduction(detail.reductionAmount);
         setPostponeMonths(detail.postponeMonths);
-        
-        // Update flex usage information if provided
-        if (detail.remainingFlexCount !== undefined) {
-          setRemainingFlexCount(detail.remainingFlexCount);
-        }
-        
-        if (detail.flexUsedThisYear !== undefined) {
-          setFlexUsedThisYear(detail.flexUsedThisYear);
-        }
         
         // If userId is provided, update the current user
         if (detail.userId) {
@@ -139,16 +126,10 @@ const HeroSection: React.FC = () => {
                       <span className="font-bold text-poalim-red">{postponeMonths} חודשים</span>
                     </div>
                   )}
-                  {flexUsedThisYear > 0 && (
+                  {currentUser.flexUsedThisYear > 0 && (
                     <div className="flex justify-between items-center mt-2">
                       <span className="text-poalim-red text-sm">גמישות שנוצלה השנה:</span>
-                      <span className="font-bold text-poalim-red">{flexUsedThisYear}/3</span>
-                    </div>
-                  )}
-                  {remainingFlexCount < 3 && (
-                    <div className="flex justify-between items-center mt-2">
-                      <span className="text-poalim-red text-sm">גמישות נותרת השנה:</span>
-                      <span className="font-bold text-poalim-red">{remainingFlexCount}/3</span>
+                      <span className="font-bold text-poalim-red">{currentUser.flexUsedThisYear}/3</span>
                     </div>
                   )}
                 </div>
