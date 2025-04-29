@@ -61,6 +61,10 @@ const PaymentForm: React.FC<PaymentFormProps> = ({
   // Calculate the actual remaining flex count after current selection
   const effectiveRemainingFlexCount = remainingFlexCount - postponeMonths;
 
+  const handleCurrentPaymentChange = (value: number[]) => {
+    setCurrentPayment(value[0]);
+  };
+
   const handleReductionAmountChange = (value: number[]) => {
     setReductionAmount(value[0]);
   };
@@ -85,12 +89,14 @@ const PaymentForm: React.FC<PaymentFormProps> = ({
           <label className="text-gray-600">סכום תשלום חודשי נוכחי:</label>
           <span className="font-bold">{currentPayment} ₪</span>
         </div>
-        <div className="w-full bg-gray-200 h-2 rounded-full mb-6">
-          <div
-            className="bg-primary h-2 rounded-full"
-            style={{ width: `${(currentPayment / 10000) * 100}%` }}
-          ></div>
-        </div>
+        <Slider
+          defaultValue={[currentPayment]}
+          min={1000}
+          max={10000}
+          step={100}
+          onValueChange={handleCurrentPaymentChange}
+          className="mb-6"
+        />
 
         <div className="flex justify-between mb-2">
           <label className="text-gray-600">סכום להפחתה מהתשלום הנוכחי:</label>

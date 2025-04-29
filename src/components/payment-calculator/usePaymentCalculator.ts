@@ -28,6 +28,17 @@ export const usePaymentCalculator = () => {
     }
   }, [selectedUserId]);
 
+  // Update reduction amount when current payment changes
+  useEffect(() => {
+    // When current payment changes, adjust the reduction amount to be at most 50% of current payment
+    // and not less than 500 or more than 3000
+    const maxReduction = Math.min(3000, Math.floor(currentPayment * 0.5));
+    const safeReduction = Math.min(maxReduction, reductionAmount);
+    if (safeReduction !== reductionAmount) {
+      setReductionAmount(safeReduction);
+    }
+  }, [currentPayment]);
+
   // Dispatch event when values change to update hero section
   useEffect(() => {
     // Create a custom event to notify the hero section about the changes
