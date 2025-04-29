@@ -1,18 +1,35 @@
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useToast } from '@/hooks/use-toast';
+import { getDefaultUser, getUser, UserMortgageProfile } from '@/services/mockUserData';
 
 export const usePaymentCalculator = () => {
   const { toast } = useToast();
-  const [currentPayment, setCurrentPayment] = useState(5200);
-  const [reductionAmount, setReductionAmount] = useState(1500);
+  const [selectedUserId, setSelectedUserId] = useState<string>(getDefaultUser().id);
+  const [currentUser, setCurrentUser] = useState<UserMortgageProfile>(getDefaultUser());
+  const [currentPayment, setCurrentPayment] = useState(currentUser.currentPayment);
+  const [reductionAmount, setReductionAmount] = useState(currentUser.recommendedReduction || 1500);
   const [repayMonths, setRepayMonths] = useState(12);
   const [isConfirming, setIsConfirming] = useState(false);
   
+  // Update user data when selectedUserId changes
+  useEffect(() => {
+    const user = getUser(selectedUserId);
+    if (user) {
+      setCurrentUser(user);
+      setCurrentPayment(user.currentPayment);
+      setReductionAmount(user.recommendedReduction || Math.round(user.currentPayment * 0.25));
+    }
+  }, [selectedUserId]);
+
   // Calculate adjusted payments
   const reducedPayment = currentPayment - reductionAmount;
   const monthlyExtra = Math.ceil(reductionAmount / repayMonths);
   const futurePayment = currentPayment + monthlyExtra;
+
+  const handleSelectUser = (userId: string) => {
+    setSelectedUserId(userId);
+  };
 
   const handleApply = () => {
     setIsConfirming(true);
@@ -55,6 +72,9 @@ export const usePaymentCalculator = () => {
   };
 
   return {
+    currentUser,
+    selectedUserId,
+    handleSelectUser,
     currentPayment,
     setCurrentPayment,
     reductionAmount,

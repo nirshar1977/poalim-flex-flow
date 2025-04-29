@@ -2,8 +2,11 @@
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { ArrowLeft } from 'lucide-react';
+import { getDefaultUser } from '@/services/mockUserData';
 
 const HeroSection: React.FC = () => {
+  const defaultUser = getDefaultUser();
+  
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
     if (element) {
@@ -51,7 +54,7 @@ const HeroSection: React.FC = () => {
                 <div className="flex justify-between items-center mb-6">
                   <div>
                     <h3 className="text-lg font-bold text-poalim-darkText">תשלום משכנתא חודשי</h3>
-                    <p className="text-sm text-gray-500">תשלום גמיש עבור 15/09/2025</p>
+                    <p className="text-sm text-gray-500">תשלום גמיש עבור {defaultUser.name}</p>
                   </div>
                   <div className="bg-poalim-lightRed p-2 rounded-full">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-poalim-red">
@@ -69,24 +72,27 @@ const HeroSection: React.FC = () => {
                 <div className="bg-poalim-gray rounded-xl p-4 mb-6">
                   <div className="flex justify-between mb-2">
                     <span className="text-gray-500">תשלום רגיל:</span>
-                    <span className="font-bold">₪5,200</span>
+                    <span className="font-bold">{defaultUser.currentPayment} ₪</span>
                   </div>
                   <div className="flex justify-between items-center">
                     <span className="text-poalim-red font-medium">תשלום מופחת Flex:</span>
-                    <span className="font-bold text-xl text-poalim-red">₪3,700</span>
+                    <span className="font-bold text-xl text-poalim-red">{defaultUser.currentPayment - defaultUser.recommendedReduction!} ₪</span>
                   </div>
                   <div className="flex justify-between items-center mt-2">
                     <span className="text-green-500 text-sm">חיסכון חודשי:</span>
-                    <span className="font-bold text-green-500">₪1,500</span>
+                    <span className="font-bold text-green-500">{defaultUser.recommendedReduction} ₪</span>
                   </div>
                 </div>
 
                 <div className="mb-4">
                   <h4 className="text-sm font-medium text-gray-500 mb-2">פריסת ההפרש</h4>
-                  <p className="text-xs text-gray-500">ההפרש בסך 1,500 ש"ח יתחלק שווה על פני 12 החודשים הבאים</p>
+                  <p className="text-xs text-gray-500">ההפרש בסך {defaultUser.recommendedReduction} ש"ח יתחלק שווה על פני 12 החודשים הבאים</p>
                 </div>
 
-                <Button className="w-full bg-poalim-red hover:bg-poalim-red/90">
+                <Button 
+                  className="w-full bg-poalim-red hover:bg-poalim-red/90"
+                  onClick={() => scrollToSection('calculator')}
+                >
                   אישור ההפחתה
                 </Button>
               </div>

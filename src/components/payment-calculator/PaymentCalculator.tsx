@@ -4,9 +4,13 @@ import { Card, CardContent } from '@/components/ui/card';
 import { usePaymentCalculator } from './usePaymentCalculator';
 import PaymentForm from './PaymentForm';
 import PaymentChart from './PaymentChart';
+import UserSelector from '@/components/UserSelector';
 
 const PaymentCalculator: React.FC = () => {
   const {
+    selectedUserId,
+    handleSelectUser,
+    currentUser,
     currentPayment,
     setCurrentPayment,
     reductionAmount,
@@ -34,9 +38,31 @@ const PaymentCalculator: React.FC = () => {
         </p>
       </div>
 
+      <UserSelector selectedUserId={selectedUserId} onSelectUser={handleSelectUser} />
+
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         <Card className="border-none card-shadow">
           <CardContent className="p-6">
+            <h3 className="text-xl font-bold text-poalim-darkText mb-2">פרטי המשכנתא</h3>
+            <div className="mb-6 bg-poalim-lightRed/30 p-4 rounded-lg">
+              <div className="flex justify-between mb-2">
+                <span className="text-gray-600">לקוח:</span>
+                <span className="font-medium">{currentUser.name}</span>
+              </div>
+              <div className="flex justify-between mb-2">
+                <span className="text-gray-600">יתרה לתשלום:</span>
+                <span className="font-medium">{currentUser.totalBalance.toLocaleString()} ₪</span>
+              </div>
+              <div className="flex justify-between mb-2">
+                <span className="text-gray-600">תשלום חודשי:</span>
+                <span className="font-medium">{currentUser.currentPayment.toLocaleString()} ₪</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-gray-600">משך זמן נותר:</span>
+                <span className="font-medium">{Math.floor(currentUser.remainingMonths / 12)} שנים ו-{currentUser.remainingMonths % 12} חודשים</span>
+              </div>
+            </div>
+            
             <h3 className="text-xl font-bold text-poalim-darkText mb-6">הגדרת הפחתת תשלום</h3>
             
             <PaymentForm
