@@ -1,6 +1,8 @@
+
 import { useState, useEffect } from 'react';
 import { useToast } from '@/hooks/use-toast';
 import { getDefaultUser, getUser, UserMortgageProfile } from '@/services/mockUserData';
+import { getRiskProfile, RiskProfile } from '@/services/riskProfiles';
 
 export const usePaymentCalculator = () => {
   const { toast } = useToast();
@@ -11,9 +13,17 @@ export const usePaymentCalculator = () => {
   const [postponeMonths, setPostponeMonths] = useState(1); // Always start with 1 month
   const [repayMonths, setRepayMonths] = useState(12);
   const [isConfirming, setIsConfirming] = useState(false);
+  const [isEarlyRepayment, setIsEarlyRepayment] = useState(false);
+  const [isRestrictedUser, setIsRestrictedUser] = useState(false);
   
   const MAX_FLEX_PER_YEAR = 3;
   const remainingFlexCount = MAX_FLEX_PER_YEAR - currentUser.flexUsedThisYear;
+  
+  // Get the current user's risk profile
+  const currentRiskProfile: RiskProfile | undefined = getRiskProfile(currentUser.riskProfileId);
+  
+  // Check if the user is restricted from using flex
+  const isUserRestricted = currentRiskProfile?.restrictFlexUsage || false;
   
   // Update user data when selectedUserId changes
   useEffect(() => {
@@ -24,6 +34,11 @@ export const usePaymentCalculator = () => {
       setReductionAmount(user.recommendedReduction || Math.round(user.currentPayment * 0.25));
       setPostponeMonths(1); // Reset postpone months to 1 when switching users
       setRepayMonths(12); // Reset repay months to default
+      
+      // Reset modal states when changing users
+      setIsConfirming(false);
+      setIsEarlyRepayment(false);
+      setIsRestrictedUser(false);
     }
   }, [selectedUserId]);
 
@@ -52,24 +67,38 @@ export const usePaymentCalculator = () => {
         remainingFlexCount,
         effectiveRemainingFlexCount: remainingFlexCount - postponeMonths,
         flexUsedThisYear: currentUser.flexUsedThisYear,
-        MAX_FLEX_PER_YEAR
+        MAX_FLEX_PER_YEAR,
+        predictedFinancialStress: currentRiskProfile?.predictedFinancialStress,
+        isUserRestricted
       }
     });
     
     window.dispatchEvent(event);
-  }, [currentPayment, reductionAmount, postponeMonths, repayMonths, selectedUserId, currentUser.flexUsedThisYear, remainingFlexCount]);
+  }, [currentPayment, reductionAmount, postponeMonths, repayMonths, selectedUserId, currentUser.flexUsedThisYear, remainingFlexCount, currentRiskProfile]);
 
   // Calculate adjusted payments
   const reducedPayment = currentPayment - reductionAmount;
   const totalPostponedAmount = reductionAmount * postponeMonths;
   const monthlyExtra = Math.ceil(totalPostponedAmount / repayMonths);
   const futurePayment = currentPayment + monthlyExtra;
+  
+  // Calculate bank fees based on the postpone period
+  const baseFeePercentage = 0.5; // Base fee percentage
+  const bankFeePercentage = baseFeePercentage + (postponeMonths * 0.1); // Fee increases with more months
+  const bankFeeAmount = Math.round((totalPostponedAmount * bankFeePercentage) / 100);
 
   const handleSelectUser = (userId: string) => {
     setSelectedUserId(userId);
   };
 
   const handleApply = () => {
+    // Check if user is restricted from using flex
+    if (isUserRestricted) {
+      setIsRestrictedUser(true);
+      return;
+    }
+    
+    // Check flex count
     if (postponeMonths > remainingFlexCount) {
       toast({
         title: "חריגה ממכסת הגמישות השנתית",
@@ -93,6 +122,27 @@ export const usePaymentCalculator = () => {
   
   const handleCancel = () => {
     setIsConfirming(false);
+  };
+  
+  const handleShowEarlyRepayment = () => {
+    setIsEarlyRepayment(true);
+  };
+  
+  const handleCloseEarlyRepayment = () => {
+    setIsEarlyRepayment(false);
+  };
+  
+  const handleEarlyRepaymentConfirm = (amount: number) => {
+    toast({
+      title: "בקשת פירעון מוקדם התקבלה",
+      description: `בקשתך לפירעון מוקדם בסך ${amount.toLocaleString()} ₪ התקבלה ותטופל בהקדם`,
+      duration: 5000,
+    });
+    setIsEarlyRepayment(false);
+  };
+  
+  const handleCloseRestrictedUser = () => {
+    setIsRestrictedUser(false);
   };
 
   // Generate chart data
@@ -142,6 +192,15 @@ export const usePaymentCalculator = () => {
     generateChartData,
     remainingFlexCount,
     MAX_FLEX_PER_YEAR,
-    totalPostponedAmount
+    totalPostponedAmount,
+    currentRiskProfile,
+    isEarlyRepayment,
+    handleShowEarlyRepayment,
+    handleCloseEarlyRepayment,
+    handleEarlyRepaymentConfirm,
+    isRestrictedUser,
+    handleCloseRestrictedUser,
+    bankFeeAmount,
+    bankFeePercentage
   };
 };

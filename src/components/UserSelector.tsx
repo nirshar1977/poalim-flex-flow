@@ -4,7 +4,7 @@ import { mockUsers, UserMortgageProfile } from '../services/mockUserData';
 import { Button } from '@/components/ui/button';
 import { UserRound } from 'lucide-react';
 import UserRiskTooltip from '@/components/UserRiskTooltip';
-import { riskProfiles } from '@/services/riskProfiles';
+import { riskProfiles, RiskProfile } from '@/services/riskProfiles';
 
 interface UserSelectorProps {
   selectedUserId: string;
@@ -24,35 +24,35 @@ const UserSelector: React.FC<UserSelectorProps> = ({ selectedUserId, onSelectUse
     window.dispatchEvent(event);
   };
   
-  // Map each user to their corresponding risk profile by index
-  const getUserRiskProfile = (index: number) => {
-    if (index === 0) return riskProfiles[0]; // Low risk
-    if (index === 1) return riskProfiles[1]; // Medium risk
-    if (index === 2) return riskProfiles[2]; // High risk
-    return riskProfiles[0]; // Default to low risk
+  // Get risk profile for each user
+  const getUserRiskProfile = (user: UserMortgageProfile): RiskProfile => {
+    return riskProfiles.find(profile => profile.id === user.riskProfileId) || riskProfiles[0];
   };
   
   return (
     <div className="bg-white rounded-lg shadow-sm p-4 mb-8">
       <h3 className="text-lg font-medium text-gray-700 mb-4">בחר משתמש להדגמה:</h3>
       <div className="flex flex-wrap gap-3">
-        {mockUsers.map((user, index) => (
-          <UserRiskTooltip 
-            key={user.id}
-            profile={getUserRiskProfile(index)}
-          >
-            <Button
-              variant={selectedUserId === user.id ? "default" : "outline"}
-              className={selectedUserId === user.id 
-                ? "bg-poalim-red hover:bg-poalim-red/90" 
-                : "border-gray-300"}
-              onClick={() => handleUserSelection(user.id)}
+        {mockUsers.map((user) => {
+          const riskProfile = getUserRiskProfile(user);
+          return (
+            <UserRiskTooltip 
+              key={user.id}
+              profile={riskProfile}
             >
-              <UserRound className="mr-2 h-4 w-4" />
-              {user.name}
-            </Button>
-          </UserRiskTooltip>
-        ))}
+              <Button
+                variant={selectedUserId === user.id ? "default" : "outline"}
+                className={selectedUserId === user.id 
+                  ? "bg-poalim-red hover:bg-poalim-red/90" 
+                  : "border-gray-300"}
+                onClick={() => handleUserSelection(user.id)}
+              >
+                <UserRound className="mr-2 h-4 w-4" />
+                {user.name}
+              </Button>
+            </UserRiskTooltip>
+          );
+        })}
       </div>
     </div>
   );

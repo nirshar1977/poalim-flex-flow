@@ -9,6 +9,7 @@ export interface UserMortgageProfile {
   loanStartDate: string;
   recommendedReduction?: number;
   flexUsedThisYear: number; // Number of times flex has been used this year
+  riskProfileId: string; // Reference to risk profile
 }
 
 export const mockUsers: UserMortgageProfile[] = [
@@ -21,7 +22,8 @@ export const mockUsers: UserMortgageProfile[] = [
     totalBalance: 950000,
     loanStartDate: "2018-05-15",
     recommendedReduction: 1500,
-    flexUsedThisYear: 1
+    flexUsedThisYear: 1,
+    riskProfileId: "low-risk"
   },
   {
     id: "user2",
@@ -32,7 +34,8 @@ export const mockUsers: UserMortgageProfile[] = [
     totalBalance: 1250000,
     loanStartDate: "2020-11-03",
     recommendedReduction: 2100,
-    flexUsedThisYear: 0
+    flexUsedThisYear: 0,
+    riskProfileId: "medium-risk"
   },
   {
     id: "user3",
@@ -43,7 +46,8 @@ export const mockUsers: UserMortgageProfile[] = [
     totalBalance: 780000,
     loanStartDate: "2022-02-28",
     recommendedReduction: 900,
-    flexUsedThisYear: 2
+    flexUsedThisYear: 2,
+    riskProfileId: "high-risk"
   }
 ];
 

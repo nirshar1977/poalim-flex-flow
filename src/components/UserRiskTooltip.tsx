@@ -2,8 +2,8 @@
 import React from 'react';
 import { HoverCard, HoverCardTrigger, HoverCardContent } from '@/components/ui/hover-card';
 import { Badge } from '@/components/ui/badge';
-import { RiskProfile, getRiskLevelColor, getRiskLevelHoverCard } from '@/services/riskProfiles';
-import { AlertCircle, Clock, DollarSign, Percent, Shield } from 'lucide-react';
+import { RiskProfile, getRiskLevelColor, getRiskLevelHoverCard, formatCurrency } from '@/services/riskProfiles';
+import { AlertCircle, Clock, DollarSign, Percent, Shield, Calendar } from 'lucide-react';
 
 interface UserRiskTooltipProps {
   children: React.ReactNode;
@@ -18,15 +18,12 @@ const riskLevelText = {
 };
 
 const UserRiskTooltip: React.FC<UserRiskTooltipProps> = ({ children, profile, className }) => {
-  // Format currency with commas
-  const formatCurrency = (amount: number) => {
-    return new Intl.NumberFormat('he-IL').format(amount);
-  };
-  
   // Get Hebrew risk level text
   const getRiskLevelText = (riskLevel: string) => {
     return riskLevelText[riskLevel as keyof typeof riskLevelText] || 'לא ידוע';
   };
+  
+  const hasStressPeriods = profile.predictedFinancialStress?.periods.length > 0;
 
   return (
     <HoverCard openDelay={200} closeDelay={200}>
@@ -67,7 +64,7 @@ const UserRiskTooltip: React.FC<UserRiskTooltipProps> = ({ children, profile, cl
           <div className="flex flex-col gap-1">
             <span className="font-semibold text-sm">פרטי הלוואה:</span>
             <div className="flex justify-between text-xs">
-              <span>{`${formatCurrency(profile.requestedLoanAmount)} ₪`}</span>
+              <span>{formatCurrency(profile.requestedLoanAmount)} ₪</span>
               <span>סכום מבוקש</span>
             </div>
             <div className="flex justify-between text-xs">
@@ -81,6 +78,23 @@ const UserRiskTooltip: React.FC<UserRiskTooltipProps> = ({ children, profile, cl
               </div>
             )}
           </div>
+          
+          {hasStressPeriods && (
+            <div className="pt-2 border-t border-gray-200">
+              <div className="flex items-center gap-1 justify-end mb-1">
+                <span className="font-semibold text-sm">תחזית AI - תקופות לחץ פיננסי:</span>
+                <Calendar className="h-3 w-3 text-amber-500" />
+              </div>
+              <ul className="text-xs space-y-1">
+                {profile.predictedFinancialStress.periods.map((period, index) => (
+                  <li key={index} className="flex items-center gap-1 justify-end">
+                    <span>{period.reason} ({period.month})</span>
+                    <Clock className="h-3 w-3 text-amber-500" />
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
 
           {profile.flags && profile.flags.length > 0 && (
             <div className="pt-2 border-t border-gray-200">
@@ -99,6 +113,12 @@ const UserRiskTooltip: React.FC<UserRiskTooltipProps> = ({ children, profile, cl
                   </li>
                 ))}
               </ul>
+            </div>
+          )}
+          
+          {profile.restrictFlexUsage && (
+            <div className="bg-red-50 p-2 rounded-md text-xs text-red-600 font-medium text-center">
+              מוגבל לשימוש בשירותי גמישות משכנתא - נדרש ייעוץ אישי
             </div>
           )}
         </div>

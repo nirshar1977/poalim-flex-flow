@@ -5,6 +5,9 @@ import { usePaymentCalculator } from './usePaymentCalculator';
 import PaymentForm from './PaymentForm';
 import PaymentChart from './PaymentChart';
 import UserSelector from '@/components/UserSelector';
+import EarlyRepaymentForm from './EarlyRepaymentForm';
+import RestrictedUserForm from './RestrictedUserForm';
+import { Dialog, DialogContent } from '@/components/ui/dialog';
 
 const PaymentCalculator: React.FC = () => {
   const {
@@ -12,7 +15,6 @@ const PaymentCalculator: React.FC = () => {
     handleSelectUser,
     currentUser,
     currentPayment,
-    setCurrentPayment,
     reductionAmount,
     setReductionAmount,
     postponeMonths,
@@ -28,7 +30,16 @@ const PaymentCalculator: React.FC = () => {
     generateChartData,
     remainingFlexCount,
     MAX_FLEX_PER_YEAR,
-    totalPostponedAmount
+    totalPostponedAmount,
+    currentRiskProfile,
+    isEarlyRepayment,
+    handleShowEarlyRepayment,
+    handleCloseEarlyRepayment,
+    handleEarlyRepaymentConfirm,
+    isRestrictedUser,
+    handleCloseRestrictedUser,
+    bankFeeAmount,
+    bankFeePercentage
   } = usePaymentCalculator();
 
   const chartData = generateChartData();
@@ -51,32 +62,38 @@ const PaymentCalculator: React.FC = () => {
             <h3 className="text-xl font-bold text-poalim-darkText mb-2">פרטי המשכנתא</h3>
             <div className="mb-6 bg-poalim-lightRed/30 p-4 rounded-lg">
               <div className="flex justify-between mb-2">
-                <span className="text-gray-600">לקוח:</span>
                 <span className="font-medium">{currentUser.name}</span>
+                <span className="text-gray-600">לקוח:</span>
               </div>
               <div className="flex justify-between mb-2">
-                <span className="text-gray-600">יתרה לתשלום:</span>
                 <span className="font-medium">{currentUser.totalBalance.toLocaleString()} ₪</span>
+                <span className="text-gray-600">יתרה לתשלום:</span>
               </div>
               <div className="flex justify-between mb-2">
-                <span className="text-gray-600">תשלום חודשי:</span>
                 <span className="font-medium">{currentUser.currentPayment.toLocaleString()} ₪</span>
+                <span className="text-gray-600">תשלום חודשי:</span>
               </div>
               <div className="flex justify-between mb-2">
-                <span className="text-gray-600">משך זמן נותר:</span>
                 <span className="font-medium">{Math.floor(currentUser.remainingMonths / 12)} שנים ו-{currentUser.remainingMonths % 12} חודשים</span>
+                <span className="text-gray-600">משך זמן נותר:</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-gray-600">גמישות שנוצלה השנה:</span>
                 <span className="font-medium">{currentUser.flexUsedThisYear} מתוך {MAX_FLEX_PER_YEAR}</span>
+                <span className="text-gray-600">גמישות שנוצלה השנה:</span>
               </div>
+              
+              {currentRiskProfile?.predictedFinancialStress?.nextStressPeriod && (
+                <div className="flex justify-between mt-2 pt-2 border-t border-red-200">
+                  <span className="font-medium text-amber-700">{currentRiskProfile.predictedFinancialStress.nextStressPeriod}</span>
+                  <span className="text-amber-700">תקופת לחץ פיננסי צפויה:</span>
+                </div>
+              )}
             </div>
             
             <h3 className="text-xl font-bold text-poalim-darkText mb-6">הגדרת הפחתת תשלום</h3>
             
             <PaymentForm
               currentPayment={currentPayment}
-              setCurrentPayment={setCurrentPayment}
               reductionAmount={reductionAmount}
               setReductionAmount={setReductionAmount}
               postponeMonths={postponeMonths}
@@ -92,6 +109,10 @@ const PaymentCalculator: React.FC = () => {
               remainingFlexCount={remainingFlexCount}
               MAX_FLEX_PER_YEAR={MAX_FLEX_PER_YEAR}
               totalPostponedAmount={totalPostponedAmount}
+              bankFeeAmount={bankFeeAmount}
+              bankFeePercentage={bankFeePercentage}
+              currentRiskProfile={currentRiskProfile}
+              onShowEarlyRepayment={handleShowEarlyRepayment}
             />
           </CardContent>
         </Card>
@@ -103,6 +124,29 @@ const PaymentCalculator: React.FC = () => {
           </CardContent>
         </Card>
       </div>
+      
+      {/* Early Repayment Dialog */}
+      <Dialog open={isEarlyRepayment} onOpenChange={handleCloseEarlyRepayment}>
+        <DialogContent className="max-w-md p-0" directionRight>
+          {currentRiskProfile && (
+            <EarlyRepaymentForm 
+              riskProfile={currentRiskProfile}
+              onClose={handleCloseEarlyRepayment}
+              onConfirm={handleEarlyRepaymentConfirm}
+            />
+          )}
+        </DialogContent>
+      </Dialog>
+      
+      {/* Restricted User Dialog */}
+      <Dialog open={isRestrictedUser} onOpenChange={handleCloseRestrictedUser}>
+        <DialogContent className="max-w-md p-0" directionRight>
+          <RestrictedUserForm 
+            user={currentUser}
+            onClose={handleCloseRestrictedUser}
+          />
+        </DialogContent>
+      </Dialog>
     </section>
   );
 };
