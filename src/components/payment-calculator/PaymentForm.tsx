@@ -48,7 +48,7 @@ const PaymentForm: React.FC<PaymentFormProps> = ({
 }) => {
   const handleIncrementMonths = () => {
     // Allow incrementing up to 3 or the remaining flex count (inclusive)
-    if (postponeMonths < Math.min(3, remainingFlexCount)) {
+    if (postponeMonths <= Math.min(3, remainingFlexCount) && postponeMonths < 3) {
       setPostponeMonths(postponeMonths + 1);
     }
   };
@@ -136,7 +136,7 @@ const PaymentForm: React.FC<PaymentFormProps> = ({
             variant="outline" 
             size="icon" 
             onClick={handleIncrementMonths} 
-            disabled={postponeMonths >= Math.min(3, remainingFlexCount)}
+            disabled={postponeMonths >= 3 || postponeMonths >= remainingFlexCount}
             className="h-8 w-8"
           >
             <Plus className="h-4 w-4" />
