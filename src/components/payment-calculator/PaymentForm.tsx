@@ -1,9 +1,8 @@
-
 import React from 'react';
 import { Slider } from '@/components/ui/slider';
 import { Button } from '@/components/ui/button';
 import { Alert, AlertDescription } from '@/components/ui/alert';
-import { Calendar } from 'lucide-react';
+import { Calendar, Minus, Plus } from 'lucide-react';
 import PaymentSummary from './PaymentSummary';
 import PaymentConfirmation from './PaymentConfirmation';
 
@@ -46,6 +45,18 @@ const PaymentForm: React.FC<PaymentFormProps> = ({
   MAX_FLEX_PER_YEAR,
   totalPostponedAmount
 }) => {
+  const handleIncrementMonths = () => {
+    if (postponeMonths < Math.min(3, remainingFlexCount)) {
+      setPostponeMonths(postponeMonths + 1);
+    }
+  };
+
+  const handleDecrementMonths = () => {
+    if (postponeMonths > 1) {
+      setPostponeMonths(postponeMonths - 1);
+    }
+  };
+
   return (
     <>
       {remainingFlexCount < MAX_FLEX_PER_YEAR && (
@@ -88,6 +99,33 @@ const PaymentForm: React.FC<PaymentFormProps> = ({
           <label className="text-gray-600">מספר חודשים להפחתת תשלום:</label>
           <span className="font-bold">{postponeMonths} {postponeMonths === 1 ? 'חודש' : 'חודשים'}</span>
         </div>
+        
+        {/* Month selector with plus/minus buttons */}
+        <div className="flex items-center justify-center mb-6 bg-gray-100 rounded-md p-2">
+          <Button 
+            variant="outline" 
+            size="icon" 
+            onClick={handleDecrementMonths} 
+            disabled={postponeMonths <= 1}
+            className="h-8 w-8"
+          >
+            <Minus className="h-4 w-4" />
+          </Button>
+          <div className="px-6 font-bold text-lg">
+            {postponeMonths}
+          </div>
+          <Button 
+            variant="outline" 
+            size="icon" 
+            onClick={handleIncrementMonths} 
+            disabled={postponeMonths >= Math.min(3, remainingFlexCount)}
+            className="h-8 w-8"
+          >
+            <Plus className="h-4 w-4" />
+          </Button>
+        </div>
+        
+        {/* Keep the slider as well, but make sure it works */}
         <Slider
           value={[postponeMonths]}
           min={1}
