@@ -31,10 +31,10 @@ const UserRiskTooltip: React.FC<UserRiskTooltipProps> = ({ children, profile, cl
         <span className={className}>{children}</span>
       </HoverCardTrigger>
       <HoverCardContent 
-        align="start" 
+        align="start" dir='ltr'
         className={`${getRiskLevelHoverCard(profile.riskLevel)} w-80 p-4 border-2 shadow-lg`}
       >
-        <div className="space-y-4 text-right">
+        <div className="space-y-4 text-right" >
           <div className="flex justify-between items-center">
             <Badge className={`${getRiskLevelColor(profile.riskLevel)}`}>
               {getRiskLevelText(profile.riskLevel)}
@@ -45,34 +45,34 @@ const UserRiskTooltip: React.FC<UserRiskTooltipProps> = ({ children, profile, cl
           <div className="grid grid-cols-2 gap-2 text-sm">
             <div className="flex items-center justify-end gap-1">
               <span>{profile.creditScore}</span>
-              <span className="font-semibold">דירוג אשראי:</span>
+              <span className="font-semibold" dir='rtl'>דירוג אשראי:</span>
             </div>
             <div className="flex items-center justify-end gap-1">
               <span>{`${profile.dtiRatio}%`}</span>
-              <span className="font-semibold">יחס חוב להכנסה:</span>
+              <span className="font-semibold" dir='rtl'>יחס חוב להכנסה:</span>
             </div>
             <div className="flex items-center justify-end gap-1">
               <span>{`${profile.ltvRatio}%`}</span>
-              <span className="font-semibold">יחס הלוואה לשווי:</span>
+              <span className="font-semibold" dir='rtl'>יחס הלוואה לשווי:</span>
             </div>
             <div className="flex items-center justify-end gap-1">
               <span>{`${profile.employmentYears} שנים`}</span>
-              <span className="font-semibold">יציבות תעסוקתית:</span>
+              <span className="font-semibold" dir='rtl'>יציבות תעסוקתית:</span>
             </div>
           </div>
 
           <div className="flex flex-col gap-1">
-            <span className="font-semibold text-sm">פרטי הלוואה:</span>
+            <span className="font-semibold text-sm" dir='rtl'>פרטי הלוואה:</span>
             <div className="flex justify-between text-xs">
               <span>{formatCurrency(profile.requestedLoanAmount)} ₪</span>
               <span>סכום מבוקש</span>
             </div>
-            <div className="flex justify-between text-xs">
+            <div className="flex justify-between text-xs" dir='ltr'>
               <span>{`${profile.downPaymentPercent}%`}</span>
               <span>הון עצמי</span>
             </div>
             {profile.recommendedInterestRate && (
-              <div className="flex justify-between text-xs">
+              <div className="flex justify-between text-xs" dir='ltr'>
                 <span>{`${profile.recommendedInterestRate}%`}</span>
                 <span>ריבית מומלצת</span>
               </div>
@@ -80,9 +80,9 @@ const UserRiskTooltip: React.FC<UserRiskTooltipProps> = ({ children, profile, cl
           </div>
           
           {hasStressPeriods && (
-            <div className="pt-2 border-t border-gray-200">
-              <div className="flex items-center gap-1 justify-end mb-1">
-                <span className="font-semibold text-sm">תחזית AI - תקופות לחץ פיננסי:</span>
+            <div className="pt-2 border-t border-gray-200" dir='rtl' >
+              <div className="flex items-center gap-1 justify-end mb-1" >
+                <span className="font-semibold text-sm" >תקופות לחץ פיננסי:</span>
                 <Calendar className="h-3 w-3 text-amber-500" />
               </div>
               <ul className="text-xs space-y-1">
@@ -97,7 +97,7 @@ const UserRiskTooltip: React.FC<UserRiskTooltipProps> = ({ children, profile, cl
           )}
 
           {profile.flags && profile.flags.length > 0 && (
-            <div className="pt-2 border-t border-gray-200">
+            <div className="pt-2 border-t border-gray-200" dir='rtl'>
               <span className="font-semibold text-sm block mb-1">דגלים:</span>
               <ul className="text-xs space-y-1">
                 {profile.flags.map((flag, index) => (

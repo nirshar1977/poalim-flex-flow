@@ -77,9 +77,9 @@ const BenefitsSection: React.FC = () => {
   return (
     <section id="benefits" className="section-container">
       <div className="text-center mb-12">
-        <h2 className="text-3xl md:text-4xl font-bold text-poalim-darkText mb-4">למה <span className="text-poalim-red">פועלים פלקס</span>?</h2>
+        <h2 className="text-3xl md:text-4xl font-bold text-poalim-darkText mb-4">למה <span className="text-poalim-red">פועלים Flex</span>?</h2>
         <p className="text-gray-600 max-w-2xl mx-auto">
-          פועלים פלקס מציע יתרונות משמעותיים הן ללקוחות והן לבנק
+          פועלים Flex מציע יתרונות משמעותיים הן ללקוחות והן לבנק
         </p>
       </div>
 

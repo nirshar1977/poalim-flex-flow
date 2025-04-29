@@ -56,9 +56,9 @@ const HowItWorks: React.FC = () => {
   return (
     <section id="how-it-works" className="section-container">
       <div className="text-center mb-12">
-        <h2 className="text-3xl md:text-4xl font-bold text-poalim-darkText mb-4">איך <span className="text-poalim-red">פועלים פלקס</span> עובד?</h2>
+        <h2 className="text-3xl md:text-4xl font-bold text-poalim-darkText mb-4">איך <span className="text-poalim-red">פועלים Flex</span> עובד?</h2>
         <p className="text-gray-600 max-w-2xl mx-auto">
-          פועלים פלקס מאפשר לך לנהל את תשלומי המשכנתא שלך באופן גמיש, המותאם לצרכים הפיננסיים המשתנים שלך
+          פועלים Flex מאפשר לך לנהל את תשלומי המשכנתא שלך באופן גמיש, המותאם לצרכים הפיננסיים המשתנים שלך
         </p>
       </div>
 

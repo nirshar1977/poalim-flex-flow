@@ -38,7 +38,7 @@ export interface RiskProfile {
 export const riskProfiles: RiskProfile[] = [
   {
     id: "low-risk",
-    name: "אביב לוי",
+    name: "דן ישראלי",
     riskLevel: "low",
     creditScore: 780,
     dtiRatio: 25,
@@ -70,7 +70,7 @@ export const riskProfiles: RiskProfile[] = [
   },
   {
     id: "medium-risk",
-    name: "שירה כהן",
+    name: "מיכל כהן",
     riskLevel: "medium",
     creditScore: 710,
     dtiRatio: 35,
@@ -105,7 +105,7 @@ export const riskProfiles: RiskProfile[] = [
   },
   {
     id: "high-risk",
-    name: "דניאל ברקוביץ",
+    name: "יוסי לוי",
     riskLevel: "high",
     creditScore: 640,
     dtiRatio: 47,

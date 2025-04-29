@@ -61,33 +61,33 @@ const PaymentCalculator: React.FC = () => {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         <Card className="border-none card-shadow">
           <CardContent className="p-6">
-            <h3 className="text-xl font-bold text-poalim-darkText mb-2">פרטי המשכנתא</h3>
-            <div className="mb-6 bg-poalim-lightRed/30 p-4 rounded-lg">
+            <h3 className="text-xl font-bold text-poalim-darkText mb-2" dir='rtl'>פרטי המשכנתא</h3>
+            <div className="mb-6 bg-poalim-lightRed/30 p-4 rounded-lg" dir='ltr'>
               <div className="flex justify-between mb-2">
                 <span className="font-medium">{currentUser.name}</span>
-                <span className="text-gray-600">לקוח:</span>
+                <span className="text-gray-600" dir='rtl'>לקוח:</span>
               </div>
               <div className="flex justify-between mb-2">
                 <span className="font-medium">{currentUser.totalBalance.toLocaleString()} ₪</span>
-                <span className="text-gray-600">יתרה לתשלום:</span>
+                <span className="text-gray-600" dir='rtl'>יתרה לתשלום:</span>
               </div>
               <div className="flex justify-between mb-2">
                 <span className="font-medium">{currentUser.currentPayment.toLocaleString()} ₪</span>
-                <span className="text-gray-600">תשלום חודשי:</span>
+                <span className="text-gray-600"  dir='rtl'>תשלום חודשי:</span>
               </div>
               <div className="flex justify-between mb-2">
                 <span className="font-medium">{Math.floor(currentUser.remainingMonths / 12)} שנים ו-{currentUser.remainingMonths % 12} חודשים</span>
-                <span className="text-gray-600">משך זמן נותר:</span>
+                <span className="text-gray-600" dir='rtl'>משך זמן נותר:</span>
               </div>
               <div className="flex justify-between">
-                <span className="font-medium">{currentUser.flexUsedThisYear} מתוך {MAX_FLEX_PER_YEAR}</span>
-                <span className="text-gray-600">גמישות שנוצלה השנה:</span>
+                <span className="font-medium" dir='rtl'>{currentUser.flexUsedThisYear} מתוך {MAX_FLEX_PER_YEAR}</span>
+                <span className="text-gray-600" dir='rtl'>גמישות שנוצלה השנה:</span>
               </div>
               
               {currentRiskProfile?.predictedFinancialStress?.nextStressPeriod && (
-                <div className="flex justify-between mt-2 pt-2 border-t border-red-200">
-                  <span className="font-medium text-amber-700">{currentRiskProfile.predictedFinancialStress.nextStressPeriod}</span>
-                  <span className="text-amber-700">תקופת לחץ פיננסי צפויה:</span>
+                <div className="flex justify-between mt-2 pt-2 border-t border-red-200" >
+                  <span className="font-medium text-amber-700" >{currentRiskProfile.predictedFinancialStress.nextStressPeriod}</span>
+                  <span className="text-amber-700" dir='rtl'>תקופת לחץ פיננסי צפויה:</span>
                 </div>
               )}
             </div>
