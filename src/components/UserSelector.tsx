@@ -10,6 +10,18 @@ interface UserSelectorProps {
 }
 
 const UserSelector: React.FC<UserSelectorProps> = ({ selectedUserId, onSelectUser }) => {
+  // Function to handle user selection and dispatch event for other components to listen
+  const handleUserSelection = (userId: string) => {
+    onSelectUser(userId);
+    
+    // Dispatch custom event so HeroSection can update too
+    const event = new CustomEvent('userSelectionChanged', {
+      detail: { userId }
+    });
+    
+    window.dispatchEvent(event);
+  };
+  
   return (
     <div className="bg-white rounded-lg shadow-sm p-4 mb-8">
       <h3 className="text-lg font-medium text-gray-700 mb-4">בחר משתמש להדגמה:</h3>
@@ -21,7 +33,7 @@ const UserSelector: React.FC<UserSelectorProps> = ({ selectedUserId, onSelectUse
             className={selectedUserId === user.id 
               ? "bg-poalim-red hover:bg-poalim-red/90" 
               : "border-gray-300"}
-            onClick={() => onSelectUser(user.id)}
+            onClick={() => handleUserSelection(user.id)}
           >
             <UserRound className="mr-2 h-4 w-4" />
             {user.name}
