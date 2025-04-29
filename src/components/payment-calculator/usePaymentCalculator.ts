@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { useToast } from '@/hooks/use-toast';
 import { getDefaultUser, getUser, UserMortgageProfile } from '@/services/mockUserData';
@@ -9,7 +8,7 @@ export const usePaymentCalculator = () => {
   const [currentUser, setCurrentUser] = useState<UserMortgageProfile>(getDefaultUser());
   const [currentPayment, setCurrentPayment] = useState(currentUser.currentPayment);
   const [reductionAmount, setReductionAmount] = useState(currentUser.recommendedReduction || 1500);
-  const [postponeMonths, setPostponeMonths] = useState(1);
+  const [postponeMonths, setPostponeMonths] = useState(1); // Always start with 1 month
   const [repayMonths, setRepayMonths] = useState(12);
   const [isConfirming, setIsConfirming] = useState(false);
   
@@ -23,7 +22,7 @@ export const usePaymentCalculator = () => {
       setCurrentUser(user);
       setCurrentPayment(user.currentPayment);
       setReductionAmount(user.recommendedReduction || Math.round(user.currentPayment * 0.25));
-      setPostponeMonths(1); // Reset postpone months when switching users
+      setPostponeMonths(1); // Reset postpone months to 1 when switching users
       setRepayMonths(12); // Reset repay months to default
     }
   }, [selectedUserId]);
